@@ -3,66 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Love ❤️</title>
+    <title>Our Special Story ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; background: #fff0f3; text-align: center; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .card { background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 85%; max-width: 320px; z-index: 10; }
+        :root { --pink: #ff4d6d; --bg: #fff0f3; --text: #590d22; }
+        body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; touch-action: manipulation; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; position: relative; z-index: 10; border: 2px solid white; }
         .hidden { display: none !important; }
-        .btn { background: #ff4d6d; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer; margin-top: 10px; font-weight: bold; }
-        
-        /* MINI RUNNER */
-        #game { width: 100%; height: 100px; background: #eee; position: relative; overflow: hidden; margin: 10px 0; border-radius: 10px; }
-        #char { position: absolute; bottom: 0; left: 20px; font-size: 20px; transition: 0.2s; }
-        #obs { position: absolute; bottom: 0; right: -20px; font-size: 20px; animation: move 2s infinite linear; }
-        @keyframes move { from { right: -20px; } to { right: 100%; } }
+        h2 { font-family: 'Pacifico', cursive; color: var(--pink); margin: 10px 0; }
+        p { color: var(--text); line-height: 1.6; font-size: 14px; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; box-shadow: 0 4px 0 #d63351; transition: 0.1s; }
+        .btn:active { transform: translateY(2px); box-shadow: none; }
+
+        /* KUE & LILIN */
+        .cake { width: 100px; height: 60px; background: #f497ad; margin: 40px auto; border-radius: 10px; position: relative; }
+        .candle { width: 8px; height: 30px; background: #eee; position: absolute; top: -30px; left: 46px; border-radius: 4px; }
+        .flame { width: 14px; height: 20px; background: orange; position: absolute; top: -18px; left: -3px; border-radius: 50% 50% 20% 20%; animation: flick 0.1s infinite; box-shadow: 0 0 10px orange; }
+        @keyframes flick { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+        /* GAME 1: LOVE RUNNER */
+        #runner-box { width: 100%; height: 160px; background: #fdf2f4; border: 2px dashed var(--pink); border-radius: 15px; position: relative; overflow: hidden; margin: 15px 0; }
+        #runner-char { position: absolute; bottom: 10px; left: 20px; font-size: 30px; transition: 0.2s; }
+        #runner-obs { position: absolute; bottom: 10px; right: -40px; font-size: 25px; }
+
+        /* GAME 2: LOVE SCRATCH */
+        #scratch-container { position: relative; width: 250px; height: 250px; margin: 15px auto; }
+        #canvas { position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair; border-radius: 15px; }
+        .photo-under { width: 250px; height: 250px; object-fit: cover; border-radius: 15px; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        /* PHOTO GRID */
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .photo-grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 12px; border: 2px solid var(--pink); }
+
+        .heart-bg { position: fixed; color: #ffb6c1; animation: float 6s infinite linear; z-index: 1; pointer-events: none; }
+        @keyframes float { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
+<div id="hearts-container"></div>
+<audio id="bgMusic" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
+
 <div id="s1" class="card">
-    <h2>🔒 PIN (1302)</h2>
-    <input type="number" id="pinInput" style="width: 80%; padding: 10px; text-align: center; font-size: 20px;">
-    <button class="btn" onclick="checkPin()">Buka Sayang</button>
+    <h2>🔒 Love Lock</h2>
+    <p>Masukkan Tanggal Spesial (1302)</p>
+    <div id="pinDisp" style="font-size: 28px; color: var(--pink); letter-spacing: 8px; margin: 15px; font-weight: bold;">____</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+        <script>for(let i=1;i<=9;i++) document.write(`<button class="btn" onclick="addP('${i}')">${i}</button>`);</script>
+        <button class="btn" style="background:#bdc3c7; box-shadow: 0 4px 0 #7f8c8d;" onclick="clP()">C</button>
+        <button class="btn" onclick="addP('0')">0</button>
+    </div>
 </div>
 
 <div id="s2" class="card hidden">
-    <h2>Game Runner 🏃‍♂️</h2>
-    <p>Tap tombol di bawah untuk lompat!</p>
-    <div id="game">
-        <div id="char">❤️</div>
-        <div id="obs">😢</div>
+    <h2>Make a Wish 🎂</h2>
+    <p>Ketuk apinya untuk tiup lilin!</p>
+    <div class="cake" onclick="tiupLilin()">
+        <div class="candle"><div id="api" class="flame"></div></div>
     </div>
-    <button class="btn" onclick="jump()">LOMPAT!</button>
-    <p id="scoreText">Skor: 0</p>
+    <div id="m2" class="hidden">
+        <p><i>"Semoga kita selalu bersama selamanya..."</i></p>
+        <button class="btn" onclick="next(2,3)">Main Love Runner 🏃‍♂️</button>
+    </div>
 </div>
 
 <div id="s3" class="card hidden">
-    <h2>Happy Birthday! 🎂</h2>
-    <p>Kamu berhasil melewati rintangan demi aku!</p>
-    <p>Kado apa yang kamu mau?</p>
-    <input type="text" placeholder="Tulis di sini..." style="width: 80%; padding: 10px;">
-    <button class="btn" onclick="alert('I Love You!')">Kirim ❤️</button>
+    <h2>Love Runner 🏃‍♂️</h2>
+    <p>Lompati 5 rintangan "Sedih"!</p>
+    <div id="runner-box" onclick="runnerJump()">
+        <div id="runner-char">❤️</div>
+        <div id="runner-obs">😢</div>
+    </div>
+    <p id="runScore" style="font-weight: bold;">Skor: 0</p>
+</div>
+
+<div id="s4" class="card hidden">
+    <h2>Love Scratch ✨</h2>
+    <p>Gosok layarnya untuk lihat foto kita!</p>
+    <div id="scratch-container">
+        <img src="https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg" class="photo-under">
+        <canvas id="canvas" width="250" height="250"></canvas>
+    </div>
+    <button id="scrBtn" class="btn hidden" onclick="next(4,5)">Buka Kado ❤️</button>
+</div>
+
+<div id="s5" class="card hidden">
+    <h2>HBD Sayang! ❤️</h2>
+    <div class="photo-grid">
+        <img src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
+        <img src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg">
+        <img src="https://i.pinimg.com/236x/f5/61/88/f561885409e6c2e3658514841961ec26.jpg">
+        <img src="https://i.pinimg.com/1200x/2a/39/64/2a3964175390317e137402684948a4c1.jpg">
+    </div>
+    <p><b>Pesan Untukmu:</b> "Terima kasih sudah lahir ke dunia ini. Kamu adalah kado terindah dalam hidupku."</p>
+    <hr>
+    <p><b>Kamu ingin kado apa sayang?</b></p>
+    <input type="text" id="kadoInput" placeholder="Tulis di sini..." style="width:80%; padding:10px; border-radius:10px; border:1px solid var(--pink); outline: none;">
+    <button class="btn" onclick="alert('Kado tercatat di hatiku! I Love You!')">Kirim Ke Aku ❤️</button>
 </div>
 
 <script>
-    let score = 0;
-    function checkPin() {
-        if(document.getElementById('pinInput').value == "1302") {
-            document.getElementById('s1').classList.add('hidden');
-            document.getElementById('s2').classList.remove('hidden');
-        } else { alert("Salah!"); }
+    let pVal = "";
+    function addP(n) { if(pVal.length < 4) pVal += n; upP(); if(pVal === "1302") setTimeout(() => next(1,2), 300); else if(pVal.length === 4) { alert("PIN Salah!"); clP(); } }
+    function clP() { pVal = ""; upP(); }
+    function upP() { document.getElementById('pinDisp').innerText = "*".repeat(pVal.length) + "_".repeat(4-pVal.length); }
+    function next(o, n) { document.getElementById('s'+o).classList.add('hidden'); document.getElementById('s'+n).classList.remove('hidden'); if(n===3) initRunner(); if(n===4) initScratch(); }
+    function tiupLilin() { document.getElementById('api').classList.add('hidden'); document.getElementById('bgMusic').play(); document.getElementById('m2').classList.remove('hidden'); }
+
+    // GAME: LOVE RUNNER
+    let runScore = 0, isJumping = false;
+    function runnerJump() { if(!isJumping) { isJumping = true; document.getElementById('runner-char').style.bottom = "80px"; setTimeout(() => { document.getElementById('runner-char').style.bottom = "10px"; isJumping = false; }, 500); } }
+    function initRunner() {
+        const obs = document.getElementById('runner-obs');
+        let move = setInterval(() => {
+            if(document.getElementById('s3').classList.contains('hidden')) { clearInterval(move); return; }
+            let r = parseInt(window.getComputedStyle(obs).getPropertyValue("right"));
+            if(r > 380) { r = -40; runScore++; document.getElementById('runScore').innerText = "Skor: " + runScore; }
+            obs.style.right = (r + 6) + "px";
+            if(r > 270 && r < 310 && !isJumping) { runScore = 0; document.getElementById('runScore').innerText = "Skor: 0"; r = -40; }
+            if(runScore >= 5) { clearInterval(move); next(3,4); }
+        }, 20);
     }
 
-    function jump() {
-        let char = document.getElementById('char');
-        char.style.bottom = "50px";
-        setTimeout(() => { char.style.bottom = "0"; score++; document.getElementById('scoreText').innerText = "Skor: " + score; if(score >= 5) next(); }, 300);
+    // GAME: LOVE SCRATCH
+    function initScratch() {
+        const cvs = document.getElementById('canvas'); const ctx = cvs.getContext('2d');
+        ctx.fillStyle = '#bdc3c7'; ctx.fillRect(0,0,250,250); ctx.globalCompositeOperation = 'destination-out';
+        let painting = false;
+        const scratch = (e) => {
+            if(!painting) return;
+            const rect = cvs.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+            ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI*2); ctx.fill();
+            if(Math.random() > 0.98) document.getElementById('scrBtn').classList.remove('hidden');
+        };
+        cvs.addEventListener('mousedown', () => painting = true);
+        window.addEventListener('mouseup', () => painting = false);
+        cvs.addEventListener('mousemove', scratch);
+        cvs.addEventListener('touchstart', (e) => { painting = true; e.preventDefault(); });
+        cvs.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); });
     }
 
-    function next() {
-        document.getElementById('s2').classList.add('hidden');
-        document.getElementById('s3').classList.remove('hidden');
-    }
-</script>
-</body>
-</html>
+    // BG HEARTS
+    setInterval(() => {
+        const h = document.createElement('div'); h.className = 'heart-bg'; h.innerText = '❤️';
+        h.style.left = Math.random()*100+'vw'; h.style.fontSize = Math.random()*20+10+'px';
+        document.getElementById('hearts-container').appendChild(h);
+        setTimeout(() => h

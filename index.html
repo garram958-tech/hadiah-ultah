@@ -3,89 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Birthday For You ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Birthday Love ❤️</title>
     <style>
-        :root { --pink-hot: #ff4d6d; --pink-soft: #fff0f3; --cake-color: #f497ad; }
-        body {
-            font-family: 'Quicksand', sans-serif; margin: 0;
-            background: linear-gradient(180deg, var(--pink-soft) 0%, #ffe3e8 100%);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; overflow: hidden; position: relative;
-        }
-
-        .bg-hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-        .floating-heart { position: absolute; color: var(--pink-hot); opacity: 0.3; animation: float 10s infinite linear; }
-        @keyframes float { 0% { transform: translateY(110vh) scale(0.5); } 100% { transform: translateY(-10vh) scale(1.2); } }
-
+        body { font-family: sans-serif; background: #fff0f3; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        .card { background: white; padding: 30px; border-radius: 25px; box-shadow: 0 10px 30px rgba(255,77,109,0.2); width: 85%; max-width: 350px; text-align: center; z-index: 10; }
         .hidden { display: none !important; }
-        .card {
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-            max-width: 380px; width: 85%; text-align: center; border: 2px solid white; z-index: 10;
-        }
+        .btn { background: #ff4d6d; color: white; border: none; padding: 12px; border-radius: 10px; width: 100%; cursor: pointer; margin-top: 15px; font-weight: bold; }
+        
+        /* PIN */
+        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .num { background: #f8f9fa; border: 1px solid #ffb6c1; padding: 15px; border-radius: 50%; font-weight: bold; color: #ff4d6d; }
 
-        /* --- MINI CAKE CSS (RINGAN) --- */
-        .cake-wrapper { position: relative; width: 120px; height: 120px; margin: 40px auto; cursor: pointer; }
-        .cake-body { position: absolute; bottom: 0; width: 120px; height: 70px; background: var(--cake-color); border-radius: 10px 10px 5px 5px; box-shadow: inset 0 -10px 0 rgba(0,0,0,0.1); }
-        .cake-body::after { content: ''; position: absolute; top: 10px; left: 0; width: 120px; height: 15px; background: white; opacity: 0.5; }
-        .candle-css { position: absolute; top: -30px; left: 55px; width: 10px; height: 40px; background: #fff; border-radius: 3px; border-bottom: 2px solid #ddd; }
-        .flame-css { 
-            position: absolute; top: -20px; left: -2.5px; width: 15px; height: 22px; background: orange; 
-            border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px orange; animation: flicker 0.1s infinite alternate; 
-        }
-        @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1) rotate(3deg); } }
+        /* KUE CSS MURNI (ANTI GAGAL) */
+        .cake { position: relative; width: 100px; height: 60px; background: #f497ad; margin: 50px auto; border-radius: 10px; border-bottom: 5px solid #e06c88; }
+        .cake::before { content: ""; position: absolute; top: 10px; left: 0; width: 100%; height: 10px; background: white; opacity: 0.4; }
+        .candle { position: absolute; top: -30px; left: 45px; width: 8px; height: 30px; background: white; border-radius: 4px; }
+        .flame { position: absolute; top: -15px; left: -3px; width: 14px; height: 20px; background: #ffca3a; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px #ffca3a; animation: blow 0.1s infinite alternate; }
+        @keyframes blow { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        /* NUMPAD */
-        .pin-dots { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
-        .dot { width: 14px; height: 14px; border: 2px solid var(--pink-hot); border-radius: 50%; }
-        .dot.active { background: var(--pink-hot); box-shadow: 0 0 10px var(--pink-hot); }
-        .numpad { display: grid; grid-template-columns: repeat(3, 60px); gap: 15px; justify-content: center; }
-        .num-btn { width: 60px; height: 60px; border-radius: 50%; border: none; background: white; font-size: 20px; color: var(--pink-hot); box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; }
-
-        /* GAME */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
-        .m-card { height: 90px; background: var(--pink-hot); border-radius: 12px; position: relative; transform-style: preserve-3d; transition: 0.6s; cursor: pointer; }
-        .m-card.flipped { transform: rotateY(180deg); }
-        .m-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg); }
-        .m-card-front { width: 100%; height: 100%; background: var(--pink-hot); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; position: absolute; backface-visibility: hidden; font-size: 24px; }
-
-        .btn { background: var(--pink-hot); color: white; border: none; padding: 12px 25px; border-radius: 15px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
-        h2 { font-family: 'Pacifico', cursive; color: var(--pink-hot); margin: 10px 0; }
-        p { color: #590d22; font-size: 0.95rem; line-height: 1.6; }
+        /* HEARTS */
+        .heart { position: absolute; color: #ffb6c1; animation: float 5s infinite linear; }
+        @keyframes float { 0% { transform: translateY(100vh); } 100% { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-<div class="bg-hearts" id="bgHearts"></div>
+<audio id="lagu" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3"></audio>
 
-<audio id="bdayMusic" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
-
-<div id="sec-lock" class="card">
-    <h2>🔒 Private Lock</h2>
-    <p>Masukkan tanggal rahasia kita (1302)</p>
-    <div class="pin-dots"><div class="dot" id="dot1"></div><div class="dot" id="dot2"></div><div class="dot" id="dot3"></div><div class="dot" id="dot4"></div></div>
+<div id="step1" class="card">
+    <h2 style="color: #ff4d6d;">🔒 Private Lock</h2>
+    <p>Masukkan PIN (1302)</p>
+    <div id="dots" style="font-size: 24px; letter-spacing: 5px;">____</div>
     <div class="numpad">
-        <button class="num-btn" onclick="tapPin('1')">1</button><button class="num-btn" onclick="tapPin('2')">2</button><button class="num-btn" onclick="tapPin('3')">3</button>
-        <button class="num-btn" onclick="tapPin('4')">4</button><button class="num-btn" onclick="tapPin('5')">5</button><button class="num-btn" onclick="tapPin('6')">6</button>
-        <button class="num-btn" onclick="tapPin('7')">7</button><button class="num-btn" onclick="tapPin('8')">8</button><button class="num-btn" onclick="tapPin('9')">9</button>
-        <button class="num-btn" style="background:none" onclick="clearPin()">C</button><button class="num-btn" onclick="tapPin('0')">0</button>
+        <button class="num" onclick="press(1)">1</button><button class="num" onclick="press(2)">2</button><button class="num" onclick="press(3)">3</button>
+        <button class="num" onclick="press(4)">4</button><button class="num" onclick="press(5)">5</button><button class="num" onclick="press(6)">6</button>
+        <button class="num" onclick="press(7)">7</button><button class="num" onclick="press(8)">8</button><button class="num" onclick="press(9)">9</button>
+        <button class="num" style="background:none; border:none;" onclick="clearP()">C</button><button class="num" onclick="press(0)">0</button>
     </div>
 </div>
 
-<div id="sec-cake" class="card hidden">
-    <h2>Make a Wish! 🎂</h2>
-    <p>Ketuk apinya untuk meniup lilin...</p>
-    <div class="cake-wrapper" onclick="blowOut()">
-        <div class="candle-css"><div class="flame-css" id="flame"></div></div>
-        <div class="cake-body"></div>
+<div id="step2" class="card hidden">
+    <h2 style="color: #ff4d6d;">Make a Wish! 🎂</h2>
+    <p>Tap apinya untuk tiup lilin!</p>
+    <div class="cake" onclick="tiup()">
+        <div id="api" class="flame"></div>
+        <div class="candle"></div>
     </div>
-    <div id="after-blow" class="hidden">
-        <p><i>"Semoga kamu selalu bahagia bersamaku."</i></p>
-        <button class="btn" onclick="transition('sec-cake', 'sec-beginning')">Buka Cerita Kita ❤️</button>
+    <div id="msg" class="hidden">
+        <p><i>"Selamat ulang tahun sayang..."</i></p>
+        <button class="btn" onclick="go(2,3)">Lanjut ke Cerita ❤️</button>
     </div>
 </div>
 
-<div id="sec-beginning" class="card hidden">
-    <h2>Awal Segalanya... ✨</h2>
-    <p style="font-style: italic; color: #d03d56;">"Masih ingat saat pertama kali kita bertemu? Dunia seolah berhenti sejenak. Aku tidak pernah menyangka bahwa sapaan sederhana hari itu akan menjadi
+<div id="step3" class="card hidden">
+    <h2 style="color: #ff4d6d;">Awal Bertemu ✨</h2>
+    <p>"Masih ingat saat pertama kali kita bertemu? Hari itu aku tidak menyangka sapaan kecilmu akan menjadi alasan bahagiaku setiap hari."</p>
+    <p>Terima kasih sudah lahir ke dunia ini.</p>
+    <button class="btn" onclick="alert('Buka galeri & game di versi lengkap!')">I Love You! ❤️</button>
+</div>
+
+<script>
+    let p = "";
+    function press(n) {
+        if(p.length < 4) p += n;
+        document.getElementById('dots').innerText = "*".repeat(p.length);
+        if(p === "1302") go(1,2);
+        else if(p.length === 4) { alert("Salah!"); clearP(); }
+    }
+    function clearP() { p = ""; document.getElementById('dots').innerText = "____"; }
+    
+    function go(old, next) {
+        document.getElementById('step'+old).classList.add('hidden');
+        document.getElementById('step'+next).classList.remove('hidden');
+    }
+
+    function tiup() {
+        document.getElementById('api').classList.add('hidden');
+        document.getElementById('lagu').play();
+        document.getElementById('msg').classList.remove('hidden');
+    }
+
+    // Floating hearts
+    setInterval(() => {
+        const h = document.createElement('div');
+        h.className = 'heart'; h.innerHTML = '❤️';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 5000);
+    }, 500);
+</script>
+</body>
+</html>

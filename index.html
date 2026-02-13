@@ -3,492 +3,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kisah Cinta Kita ❤️</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Pacifico&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <title>Special Birthday for You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-pink: #FF69B4; /* Hot Pink */
-            --secondary-pink: #FFC0CB; /* Light Pink */
-            --text-dark: #6a052e;
-            --text-light: #fff;
-            --bg-gradient-start: #ffe6f2; /* Lighter Pink */
-            --bg-gradient-end: #ffafea; /* Lavender Blush */
+            --pink-hot: #ff4d6d;
+            --pink-light: #ffb6c1;
+            --pink-soft: #fff0f3;
+            --text-dark: #590d22;
         }
+
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
-            color: var(--text-dark);
-            text-align: center;
+            background-color: var(--pink-soft);
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
-            position: relative;
-            padding: 20px 0;
-            box-sizing: border-box;
-        }
-
-        /* Responsive Background Love */
-        body::before, body::after {
-            content: '💖';
-            position: absolute;
-            font-size: 50px;
-            opacity: 0.3;
-            animation: floatHeart 10s infinite ease-in-out;
-            pointer-events: none;
-            z-index: 0;
-        }
-        body::before { top: 10%; left: 5%; animation-delay: 0s; }
-        body::after { bottom: 15%; right: 10%; animation-delay: 2s; }
-
-        @keyframes floatHeart {
-            0% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(-20px) scale(1.1); }
-            100% { transform: translateY(0) scale(1); }
+            /* Background Pita & Love */
+            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z4ZnNpZGx6cmVqN2V3ajd6N2p4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0CLfF5eD9yH29BmM/giphy.gif');
+            background-size: cover;
         }
 
         .hidden { display: none !important; }
+
+        /* --- KARTU UTAMA --- */
         .card {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            max-width: 450px;
-            width: 90%;
-            margin: auto;
-            border: 3px solid var(--primary-pink);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 85%;
+            text-align: center;
+            border: 3px solid var(--pink-light);
+            animation: fadeIn 0.8s ease-out;
             position: relative;
             z-index: 10;
-            overflow: hidden;
-            animation: fadeInScale 0.8s ease-out;
         }
 
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.9) translateY(20px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
+        /* --- NUMPAD LOCKSCREEN --- */
+        .pin-dots { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
+        .dot { width: 15px; height: 15px; border: 2px solid var(--pink-hot); border-radius: 50%; }
+        .dot.active { background-color: var(--pink-hot); }
+        .numpad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; justify-content: center; }
+        .num-btn { 
+            width: 70px; height: 70px; border-radius: 50%; border: none; 
+            background: white; font-size: 20px; font-weight: bold; 
+            color: var(--pink-hot); box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;
+        }
+        .num-btn:active { background: var(--pink-light); color: white; }
+
+        /* --- GAMBAR --- */
+        .main-img { 
+            width: 100%; border-radius: 20px; border: 3px solid var(--pink-light);
+            margin-bottom: 15px; object-fit: cover;
         }
 
-        h1, h2, h3 {
-            font-family: 'Dancing Script', cursive;
-            color: var(--primary-pink);
-            margin-bottom: 15px;
-        }
-        h1 { font-size: 2.8em; }
-        h2 { font-size: 2em; }
-        p { font-size: 1.1em; line-height: 1.6; }
-
-        input {
-            padding: 12px;
-            border-radius: 10px;
-            border: 2px solid var(--secondary-pink);
-            margin-bottom: 15px;
-            width: calc(100% - 24px);
-            font-size: 1em;
-            text-align: center;
-        }
-        button {
-            background-color: var(--primary-pink);
-            color: var(--text-light);
-            border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: transform 0.2s ease-in-out, background-color 0.2s;
-            margin: 8px 5px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        button:hover {
-            transform: translateY(-3px) scale(1.02);
-            background-color: #e652a2;
-        }
-        .message {
-            margin-top: 20px;
-            font-weight: bold;
-            color: var(--primary-pink);
-        }
-        img {
-            max-width: 100%;
-            border-radius: 15px;
-            margin: 20px auto;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 2px solid var(--secondary-pink);
-            display: block;
-        }
-        .emoji { font-size: 1.5em; vertical-align: middle; }
-
-        /* Story specific styles */
-        .story-chapter {
-            text-align: left;
-            margin-bottom: 25px;
-            opacity: 0; /* Hidden by default */
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .story-chapter.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .story-chapter h3 {
-            font-family: 'Pacifico', cursive;
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            color: #cc0066;
+        /* --- TEKS & TOMBOL --- */
+        h1 { font-family: 'Pacifico', cursive; color: var(--pink-hot); font-size: 1.8rem; }
+        h2 { font-family: 'Dancing Script', cursive; color: var(--pink-hot); font-size: 2rem; }
+        p { color: var(--text-dark); line-height: 1.5; font-size: 0.95rem; }
+        .btn-next {
+            background: var(--pink-hot); color: white; border: none; 
+            padding: 12px 25px; border-radius: 15px; font-weight: bold; cursor: pointer;
+            margin-top: 15px; width: 100%;
         }
 
-        /* Memory Game */
-        #memory-game {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 columns */
-            gap: 10px;
-            margin-top: 20px;
-            perspective: 1000px;
-        }
-        .memory-card {
-            width: 80px; /* Lebar kartu */
-            height: 80px; /* Tinggi kartu */
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
-        .memory-card.flip {
-            transform: rotateY(180deg);
-        }
-        .front-face, .back-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-        }
-        .front-face {
-            background: var(--secondary-pink);
-            color: var(--text-light);
-            border: 2px solid var(--primary-pink);
-        }
-        .back-face {
-            background: white;
-            transform: rotateY(180deg);
-            border: 2px solid var(--secondary-pink);
-            color: var(--primary-pink);
-        }
-        .memory-card.match .back-face {
-            background-color: #d4edda; /* Warna hijau muda untuk kartu yang cocok */
-        }
-        .memory-card.disabled {
-            pointer-events: none;
-        }
-        #memory-status {
-            margin-top: 20px;
-            font-size: 1.1em;
-            color: var(--primary-pink);
-        }
+        /* --- GAMES & GIFTS --- */
+        .gift-container { display: flex; justify-content: space-around; margin-top: 20px; }
+        .gift-box { font-size: 40px; cursor: pointer; transition: 0.3s; }
+        .gift-box:hover { transform: scale(1.2); }
 
-        /* Confetti Effect (same as before, but with pink-white colors) */
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: var(--primary-pink); /* Default confetti color */
-            border-radius: 50%;
-            animation: fall linear forwards;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 1000;
-        }
-        @keyframes fall {
-            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-
-        /* Heart rain effect */
-        .heart {
-            position: absolute;
-            font-size: 25px;
-            color: var(--primary-pink);
-            animation: heartFall 10s linear infinite;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-        @keyframes heartFall {
-            0% { transform: translateY(-10vh) translateX(0px) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.8; }
-            100% { transform: translateY(110vh) translateX(50px) rotate(720deg); opacity: 0; }
-        }
-
+        /* --- ANIMASI --- */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .heart-rain { position: absolute; pointer-events: none; animation: heartFall 5s linear infinite; }
+        @keyframes heartFall { 0% { transform: translateY(-10vh); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
     </style>
 </head>
 <body>
 
-    <div id="login-section" class="card">
-        <h2>💖 Pintu Rahasia Hati 💖</h2>
-        <p>Hanya untuk kamu yang spesial. Masukkan kata kunci rahasia:</p>
-        <input type="password" id="passInput" placeholder="Clue: Warna kesukaanmu?">
-        <br>
-        <button onclick="checkPass()">Buka Kisah Kita</button>
-        <p id="errorMessage" style="color: red; font-size: 0.9em;" class="hidden">Kata kunci salah! Coba lagi. 🤔</p>
-    </div>
-
-    <div id="intro-section" class="card hidden">
-        <h1 style="font-family: 'Pacifico', cursive;">Halo, [Nama Dia]ku!</h1>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3d6bXcxNmV5bmR3eXF1bTNnMXhzaTRlM2hnbWJpOHJvbWJscGk4ZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/efI29y4Ld7xVb4aY47/giphy.gif" alt="Cute couple gif" style="max-width: 200px;">
-        <p>Ada cerita spesial yang ingin aku bagikan denganmu. Cerita ini tentang kita... ❤️</p>
-        <button onclick="startStory()">Mulai Kisah Kita ✨</button>
-    </div>
-
-    <div id="story-section" class="card hidden">
-        <h2 style="font-family: 'Pacifico', cursive;">✨ Kisah Kita ✨</h2>
-        <div id="story-chapters-container">
-            <div class="story-chapter" id="chapter-1">
-                <h3>Pertemuan Pertama 💖</h3>
-                <p>Ingat tidak, waktu itu... aku tidak pernah menyangka akan bertemu seseorang sepertimu. Dunia rasanya langsung berubah warna. Kamu datang dengan senyum yang menawan dan membuat jantungku berdebar kencang. Itu adalah awal dari segalanya. <span class="emoji">😍</span></p>
-                <img src="https://images.unsplash.com/photo-1516086812061-f3b302c1746c?w=500" alt="First meeting photo">
-                <button onclick="nextChapter()">Lanjut ke Kenangan Berikutnya</button>
-            </div>
-            <div class="story-chapter hidden" id="chapter-2">
-                <h3>Tawa & Candamu 🥳</h3>
-                <p>Sejak saat itu, setiap hari bersamamu selalu penuh tawa dan cerita. Kamu mengajarkanku banyak hal, membuatku melihat dunia dari sudut pandang yang berbeda. Momen-momen kecil bersamamu adalah harta yang tak ternilai. <span class="emoji">😄</span></p>
-                <img src="https://images.unsplash.com/photo-1520600115041-86938925574c?w=500" alt="Laughing together photo">
-                <button onclick="nextChapter()">Lanjut ke Bab Selanjutnya</button>
-            </div>
-            <div class="story-chapter hidden" id="chapter-3">
-                <h3>Kita Melangkah Bersama 👣</h3>
-                <p>Dan di sinilah kita sekarang, melangkah bersama melewati suka dan duka. Setiap tantangan membuat kita semakin kuat, setiap kebahagiaan semakin indah. Aku bersyukur Tuhan mempertemukan kita. <span class="emoji">💞</span></p>
-                <img src="https://images.unsplash.com/photo-1515151322047-bf1b71479db5?w=500" alt="Walking together photo">
-                <button onclick="nextChapter()">Sudah Siap Main Game?</button>
-            </div>
+    <div id="section-pin" class="card">
+        <h2>🔒 Masukkan Kode Rahasia</h2>
+        <p>Hanya yang punya kunci yang bisa masuk!</p>
+        <div class="pin-dots">
+            <div class="dot" id="dot1"></div><div class="dot" id="dot2"></div>
+            <div class="dot" id="dot3"></div><div class="dot" id="dot4"></div>
         </div>
-        <button onclick="showGame()" id="start-game-button" class="hidden">Yuk, Main Game Memori! 🧠</button>
+        <div class="numpad">
+            <button class="num-btn" onclick="pressNum('1')">1</button>
+            <button class="num-btn" onclick="pressNum('2')">2</button>
+            <button class="num-btn" onclick="pressNum('3')">3</button>
+            <button class="num-btn" onclick="pressNum('4')">4</button>
+            <button class="num-btn" onclick="pressNum('5')">5</button>
+            <button class="num-btn" onclick="pressNum('6')">6</button>
+            <button class="num-btn" onclick="pressNum('7')">7</button>
+            <button class="num-btn" onclick="pressNum('8')">8</button>
+            <button class="num-btn" onclick="pressNum('9')">9</button>
+            <button class="num-btn" style="box-shadow:none; background:none;" onclick="clearPin()">C</button>
+            <button class="num-btn" onclick="pressNum('0')">0</button>
+            <button class="num-btn" style="box-shadow:none; background:none; font-size:12px;" onclick="alert('Clue: 1302')">Hint</button>
+        </div>
     </div>
 
-    <div id="game-section" class="card hidden">
-        <h2>🧠 Game Memori Cinta 🧠</h2>
-        <p>Cocokkan semua pasangan gambar untuk membuka pesan rahasia terakhirku!</p>
-        <div id="memory-game"></div>
-        <p id="memory-status" class="message">Pasangan cocok: 0 / 8</p>
-        <button onclick="showFinalMessage()" id="show-final-message-button" class="hidden">Buka Pesan Terakhirku! ✨</button>
+    <div id="section-story" class="card hidden">
+        <h1>Kisah Kita Dimulai... ❤️</h1>
+        <img class="main-img" src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg" alt="Awal Bertemu">
+        <p>Ingat tidak saat kita pertama kali bertemu? Rasanya dunia langsung berubah jadi pink! Kamu datang dengan senyuman yang paling manis...</p>
+        <button class="btn-next" onclick="showSection('section-game')">Main Game Dulu ✨</button>
     </div>
 
-    <div id="final-message-section" class="card hidden">
-        <h1 style="font-family: 'Pacifico', cursive;">💌 Pesan Terakhir Untukmu 💌</h1>
-        <p style="font-size: 1.2em;">[Nama Dia]ku tersayang,</p>
-        <p style="font-size: 1.2em;">Setiap momen bersamamu adalah anugerah. Terima kasih sudah menjadi bagian terindah dalam hidupku. Aku sangat mencintaimu, lebih dari kata-kata bisa ungkapkan. Semoga kita selalu bersama, menciptakan lebih banyak cerita indah. <span class="emoji">Forever yours</span></p>
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM2FwaG1zZDJwYzhra25zdGJocWp1Z2g1N3V6OHQ4Z2NzaW0xaWk1bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif" alt="Forever love gif" style="max-width: 250px;">
-        <p style="margin-top: 20px;">Selamat menikmati hari ini! <span class="emoji">💕</span></p>
+    <div id="section-game" class="card hidden">
+        <h2>Game Tebak Angka 🎲</h2>
+        <p>Tebak angka keberuntunganmu hari ini (1-10) untuk melihat kado!</p>
+        <input type="number" id="guessInput" style="padding: 10px; border-radius: 10px; border: 1px solid var(--pink-hot); width: 50px;">
+        <br>
+        <button class="btn-next" onclick="checkGame()">Tebak!</button>
+        <p id="gameResult"></p>
+    </div>
+
+    <div id="section-gift" class="card hidden">
+        <h2>Pilih Kado Kamu! 🎁</h2>
+        <p>Klik salah satu kotak di bawah ini ya!</p>
+        <div class="gift-container">
+            <div class="gift-box" onclick="showFinal('Makan Malam Romantis 🍝')">🎁</div>
+            <div class="gift-box" onclick="showFinal('Bebas Request Apa Saja 👑')">🎁</div>
+            <div class="gift-box" onclick="showFinal('Saldo E-Wallet / Jajan 💸')">🎁</div>
+        </div>
+    </div>
+
+    <div id="section-final" class="card hidden">
+        <h1>Happy Birthday! 🎂</h1>
+        <p id="giftResultText"></p>
+        <p>Terima kasih sudah ada di hidupku. I love you more than anything! 💖</p>
+        <button class="btn-next" onclick="location.reload()">Buka Lagi</button>
     </div>
 
     <script>
-        // --- KONFIGURASI PENTING ---
-        const TARGET_NAME = "Cantik"; // GANTI NAMA DIA DI SINI! (Misal: "Fatimah")
-        const PASSWORD_BENAR = "pink"; // GANTI PASSWORD DI SINI! (Clue: Warna kesukaannya?)
+        const PIN_BENAR = "1302"; // GANTI PIN DI SINI
+        let pinInput = "";
+        const luckyNumber = Math.floor(Math.random() * 10) + 1;
 
-        // --- Variabel Elemen ---
-        const loginSection = document.getElementById('login-section');
-        const introSection = document.getElementById('intro-section');
-        const storySection = document.getElementById('story-section');
-        const gameSection = document.getElementById('game-section');
-        const finalMessageSection = document.getElementById('final-message-section');
-
-        const passInput = document.getElementById('passInput');
-        const errorMessage = document.getElementById('errorMessage');
-
-        // Ganti nama target di intro
-        introSection.querySelector('h1').innerHTML = `Halo, ${TARGET_NAME}ku!`;
-        finalMessageSection.querySelector('p:nth-of-type(1)').innerHTML = `${TARGET_NAME}ku tersayang,`;
-
-
-        // --- Fungsi Utilitas ---
-        function showSection(sectionToShow) {
-            const sections = [loginSection, introSection, storySection, gameSection, finalMessageSection];
-            sections.forEach(section => section.classList.add('hidden'));
-            sectionToShow.classList.remove('hidden');
-        }
-
-        function triggerConfetti(colors = ['#FF69B4', '#FFC0CB', '#FFFFFF']) { // Pink, light pink, white
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.animationDuration = `${Math.random() * 2 + 3}s`; // 3-5s
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                document.body.appendChild(confetti);
-                confetti.addEventListener('animationend', () => confetti.remove());
+        function pressNum(n) {
+            if(pinInput.length < 4) {
+                pinInput += n;
+                updateDots();
+                if(pinInput.length === 4) setTimeout(validatePin, 300);
             }
         }
 
-        function createHeartRain() {
-            for (let i = 0; i < 20; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerText = '❤️';
-                heart.style.left = `${Math.random() * 100}vw`;
-                heart.style.animationDuration = `${Math.random() * 5 + 5}s`;
-                heart.style.animationDelay = `-${Math.random() * 5}s`;
-                document.body.appendChild(heart);
-                heart.addEventListener('animationend', () => heart.remove());
+        function updateDots() {
+            for(let i=1; i<=4; i++) {
+                document.getElementById('dot'+i).classList.toggle('active', i <= pinInput.length);
             }
         }
 
+        function clearPin() { pinInput = ""; updateDots(); }
 
-        // --- LOGIKA PASSWORD ---
-        function checkPass() {
-            if(passInput.value.toLowerCase() === PASSWORD_BENAR.toLowerCase()) {
-                showSection(introSection);
-                triggerConfetti(); // Konfeti setelah berhasil login
-                createHeartRain(); // Hujan hati
+        function validatePin() {
+            if(pinInput === PIN_BENAR) {
+                showSection('section-story');
+                makeHearts();
             } else {
-                errorMessage.classList.remove('hidden');
+                alert("PIN Salah sayang! Coba lagi.");
+                clearPin();
             }
         }
 
-        // --- LOGIKA CERITA ---
-        let currentChapter = 1;
-        const totalChapters = 3;
-
-        function startStory() {
-            showSection(storySection);
-            document.getElementById(`chapter-${currentChapter}`).classList.remove('hidden');
-            document.getElementById(`chapter-${currentChapter}`).classList.add('active');
+        function showSection(id) {
+            document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
 
-        function nextChapter() {
-            document.getElementById(`chapter-${currentChapter}`).classList.remove('active');
-            document.getElementById(`chapter-${currentChapter}`).classList.add('hidden'); // Sembunyikan chapter sebelumnya
-            currentChapter++;
-
-            if (currentChapter <= totalChapters) {
-                document.getElementById(`chapter-${currentChapter}`).classList.remove('hidden');
-                document.getElementById(`chapter-${currentChapter}`).classList.add('active');
+        function checkGame() {
+            const val = document.getElementById('guessInput').value;
+            if(val == luckyNumber) {
+                alert("Bener banget! Kamu emang hoki!");
+                showSection('section-gift');
             } else {
-                document.getElementById('start-game-button').classList.remove('hidden');
+                document.getElementById('gameResult').innerText = val < luckyNumber ? "Kekecilan!" : "Kebesaran!";
             }
         }
 
-        function showGame() {
-            showSection(gameSection);
-            initMemoryGame(); // Inisialisasi game memori
+        function showFinal(prize) {
+            document.getElementById('giftResultText').innerHTML = "Kamu dapet hadiah: <br><b>" + prize + "</b>";
+            showSection('section-final');
         }
 
-        function showFinalMessage() {
-            showSection(finalMessageSection);
-            triggerConfetti();
-        }
-
-
-        // --- LOGIKA GAME MEMORI ---
-        const emojis = ['😊', '🥰', '💖', '✨', ' ']; // Tambah emoji spasi untuk kartu kosong
-        let cards = [];
-        let hasFlippedCard = false;
-        let lockBoard = false;
-        let firstCard, secondCard;
-        let matchesFound = 0;
-        const totalPairs = 8; // (cards.length / 2)
-
-        const memoryGameContainer = document.getElementById('memory-game');
-        const memoryStatus = document.getElementById('memory-status');
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-
-        function initMemoryGame() {
-            // Kita ingin 8 pasang, jadi 16 kartu
-            const gameEmojis = ['😊', '🥰', '💖', '✨', '💐', '💞', '🎁', '🌸'];
-            cards = [...gameEmojis, ...gameEmojis]; // Duplikasi untuk pasangan
-            cards = shuffle(cards);
-            memoryGameContainer.innerHTML = '';
-            matchesFound = 0;
-            memoryStatus.innerText = `Pasangan cocok: ${matchesFound} / ${totalPairs}`;
-            document.getElementById('show-final-message-button').classList.add('hidden');
-
-            cards.forEach((emoji, index) => {
-                const cardElement = document.createElement('div');
-                cardElement.classList.add('memory-card');
-                cardElement.dataset.emoji = emoji;
-                cardElement.innerHTML = `
-                    <div class="front-face">?</div>
-                    <div class="back-face">${emoji}</div>
-                `;
-                cardElement.addEventListener('click', flipCard);
-                memoryGameContainer.appendChild(cardElement);
-            });
-        }
-
-        function flipCard() {
-            if (lockBoard) return;
-            if (this === firstCard) return;
-
-            this.classList.add('flip');
-
-            if (!hasFlippedCard) {
-                hasFlippedCard = true;
-                firstCard = this;
-                return;
-            }
-
-            secondCard = this;
-            checkForMatch();
-        }
-
-        function checkForMatch() {
-            let isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
-            isMatch ? disableCards() : unflipCards();
-        }
-
-        function disableCards() {
-            firstCard.removeEventListener('click', flipCard);
-            secondCard.removeEventListener('click', flipCard);
-            firstCard.classList.add('match'); // Tambahkan kelas match
-            secondCard.classList.add('match'); // Tambahkan kelas match
-            matchesFound++;
-            memoryStatus.innerText = `Pasangan cocok: ${matchesFound} / ${totalPairs}`;
-            resetBoard();
-
-            if (matchesFound === totalPairs) {
-                setTimeout(() => {
-                    alert('Selamat! Kamu berhasil menemukan semua pasangan! ✨');
-                    triggerConfetti();
-                    document.getElementById('show-final-message-button').classList.remove('hidden');
-                }, 500);
+        function makeHearts() {
+            for(let i=0; i<15; i++) {
+                let h = document.createElement('div');
+                h.innerHTML = "❤️";
+                h.className = "heart-rain";
+                h.style.left = Math.random() * 100 + "vw";
+                h.style.fontSize = Math.random() * 20 + 10 + "px";
+                h.style.animationDuration = Math.random() * 3 + 2 + "s";
+                document.body.appendChild(h);
             }
         }
-
-        function unflipCards() {
-            lockBoard = true;
-            setTimeout(() => {
-                firstCard.classList.remove('flip');
-                secondCard.classList.remove('flip');
-                resetBoard();
-            }, 1000);
-        }
-
-        function resetBoard() {
-            [hasFlippedCard, lockBoard] = [false, false];
-            [firstCard, secondCard] = [null, null];
-        }
-
-        // --- Inisialisasi ---
-        document.addEventListener('DOMContentLoaded', () => {
-            createHeartRain(); // Hujan hati saat halaman pertama kali dimuat
-        });
-
     </script>
 </body>
 </html>

@@ -150,4 +150,8 @@
         const h = document.createElement('div'); h.className = 'heart-bg'; h.innerText = '❤️';
         h.style.left = Math.random()*100+'vw'; h.style.fontSize = Math.random()*20+10+'px';
         document.getElementById('hearts-container').appendChild(h);
-        setTimeout(() => h
+        setTimeout(() => h.remove(), 6000);
+    }, 500);
+</script>
+</body>
+</html>

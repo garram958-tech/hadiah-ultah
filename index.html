@@ -7,95 +7,115 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pink-hot: #ff4d6d;
+            --pink-deep: #ff4d6d;
+            --pink-mid: #ff758f;
             --pink-light: #ffb6c1;
-            --pink-soft: #fff0f3;
-            --text-dark: #590d22;
+            --pink-bg: #fff0f3;
         }
 
         body {
             font-family: 'Quicksand', sans-serif;
-            background-color: var(--pink-soft);
             margin: 0;
+            background: linear-gradient(180deg, var(--pink-bg) 0%, #ffe3e8 100%);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
-            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z4ZnNpZGx6cmVqN2V3ajd6N2p4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0CLfF5eD9yH29BmM/giphy.gif');
-            background-size: cover;
-            background-attachment: fixed;
+            position: relative;
+        }
+
+        /* --- ANIMASI LOVE BERTEBARAN (BACKGROUND) --- */
+        .bg-hearts {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-heart {
+            position: absolute;
+            color: var(--pink-light);
+            opacity: 0.6;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
         }
 
         .hidden { display: none !important; }
 
         .card {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
             padding: 25px;
             border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            max-width: 420px;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            max-width: 400px;
             width: 85%;
             text-align: center;
-            border: 3px solid var(--pink-light);
-            animation: slideUp 0.8s ease-out;
+            border: 2px solid white;
             position: relative;
             z-index: 10;
-            margin: 20px 0;
+            animation: cardPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* --- LOCKSCREEN --- */
-        .pin-dots { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
-        .dot { width: 15px; height: 15px; border: 2px solid var(--pink-hot); border-radius: 50%; }
-        .dot.active { background-color: var(--pink-hot); box-shadow: 0 0 10px var(--pink-hot); }
-        .numpad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; justify-content: center; }
+        @keyframes cardPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- NUMPAD STYLE --- */
+        .pin-dots { display: flex; justify-content: center; gap: 12px; margin: 20px 0; }
+        .dot { width: 14px; height: 14px; border: 2px solid var(--pink-deep); border-radius: 50%; }
+        .dot.active { background: var(--pink-deep); box-shadow: 0 0 10px var(--pink-deep); }
+        .numpad { display: grid; grid-template-columns: repeat(3, 70px); gap: 12px; justify-content: center; }
         .num-btn { 
             width: 70px; height: 70px; border-radius: 50%; border: none; 
-            background: white; font-size: 20px; font-weight: bold; 
-            color: var(--pink-hot); box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;
+            background: white; font-size: 22px; font-weight: bold; 
+            color: var(--pink-deep); box-shadow: 0 4px 10px rgba(0,0,0,0.05); cursor: pointer;
         }
         .num-btn:active { background: var(--pink-light); color: white; transform: scale(0.9); }
 
-        /* --- GALLERY --- */
-        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .gallery-img { width: 100%; height: 120px; object-fit: cover; border-radius: 15px; border: 2px solid var(--pink-light); }
+        /* --- FOTO & GALLERY --- */
+        .main-img { width: 100%; border-radius: 20px; border: 4px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin: 15px 0; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 15px 0; }
+        .gallery img { width: 100%; height: 100px; object-fit: cover; border-radius: 12px; }
 
-        /* --- MEMORY GAME FOTO --- */
-        .memory-game { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        /* --- GAME MEMORY FOTO --- */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 15px; }
         .m-card { 
-            height: 100px; background: var(--pink-light); border-radius: 12px; 
-            position: relative; cursor: pointer; transform-style: preserve-3d; transition: 0.6s;
+            height: 90px; background: var(--pink-light); border-radius: 10px; 
+            position: relative; cursor: pointer; transform-style: preserve-3d; transition: 0.5s;
         }
         .m-card.flipped { transform: rotateY(180deg); }
-        .m-card img { 
-            width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
-            position: absolute; backface-visibility: hidden; transform: rotateY(180deg);
-        }
-        .card-front { 
-            width: 100%; height: 100%; background: var(--pink-hot); border-radius: 12px;
-            display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;
-            position: absolute; backface-visibility: hidden;
-        }
+        .m-card img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; position: absolute; backface-visibility: hidden; transform: rotateY(180deg); }
+        .m-card-front { width: 100%; height: 100%; background: var(--pink-mid); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; position: absolute; backface-visibility: hidden; font-size: 20px; }
 
-        /* --- TYPOGRAPHY --- */
-        h1 { font-family: 'Pacifico', cursive; color: var(--pink-hot); font-size: 1.8rem; }
-        h2 { font-family: 'Dancing Script', cursive; color: var(--pink-hot); font-size: 2.2rem; }
-        p { line-height: 1.6; font-size: 0.95rem; color: var(--text-dark); }
-        .btn-next {
-            background: var(--pink-hot); color: white; border: none; padding: 12px 25px;
-            border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px;
+        /* --- BUTTONS --- */
+        .btn {
+            background: var(--pink-deep); color: white; border: none; padding: 12px 20px;
+            border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;
+            transition: 0.3s;
         }
+        .btn:hover { background: #e63958; transform: translateY(-2px); }
 
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .falling { position: absolute; pointer-events: none; z-index: 1; animation: fall linear forwards; }
-        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
+        h1 { font-family: 'Pacifico', cursive; color: var(--pink-deep); }
+        h2 { font-family: 'Dancing Script', cursive; color: var(--pink-deep); font-size: 2rem; }
+        p { font-size: 0.9rem; color: #66101f; line-height: 1.6; }
     </style>
 </head>
 <body>
 
+    <div class="bg-hearts" id="bgHearts"></div>
+
     <div id="sec-lock" class="card">
-        <h2>🔒 Private Access</h2>
-        <p>Gunakan PIN rahasia untuk membuka kenangan kita...</p>
+        <h2>🔒 Private Key</h2>
+        <p>Hanya kamu yang punya kuncinya...</p>
         <div class="pin-dots">
             <div class="dot" id="dot1"></div><div class="dot" id="dot2"></div>
             <div class="dot" id="dot3"></div><div class="dot" id="dot4"></div>
@@ -110,132 +130,6 @@
             <button class="num-btn" onclick="addPin('7')">7</button>
             <button class="num-btn" onclick="addPin('8')">8</button>
             <button class="num-btn" onclick="addPin('9')">9</button>
-            <button class="num-btn" style="background:none; box-shadow:none;" onclick="clearPin()">C</button>
+            <button class="num-btn" style="background:none;" onclick="clearPin()">C</button>
             <button class="num-btn" onclick="addPin('0')">0</button>
-            <button class="num-btn" style="background:none; box-shadow:none; font-size:12px;" onclick="alert('Clue: 1302')">Hint</button>
-        </div>
-    </div>
-
-    <div id="sec-story" class="card hidden">
-        <h2>Untuk Kamu, Sayang ❤️</h2>
-        <p>"Dalam setiap detak jantungku, ada namamu. Terima kasih telah menjadi bagian terindah dalam hidupku."</p>
-        <div class="gallery-grid">
-            <img class="gallery-img" src="https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg">
-            <img class="gallery-img" src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
-            <img class="gallery-img" src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg">
-            <img class="gallery-img" src="https://i.pinimg.com/736x/43/0e/65/430e653063510c4309e53995893375c3.jpg">
-        </div>
-        <p>Melihat foto-foto ini mengingatkanku betapa beruntungnya aku memilikimu. Siap untuk tantangan kecil?</p>
-        <button class="btn-next" onclick="transition('sec-story', 'sec-game'); initGame();">Mainkan Game Memori Foto 🧩</button>
-    </div>
-
-    <div id="sec-game" class="card hidden">
-        <h2>Uji Ingatan Cintamu ✨</h2>
-        <p>Temukan pasangan foto yang sama untuk membuka kejutan akhir!</p>
-        <div class="memory-game" id="grid"></div>
-        <p id="game-info" style="font-size: 13px; margin-top: 15px; font-weight: bold;">Pasangan: 0/3</p>
-    </div>
-
-    <div id="sec-final" class="card hidden">
-        <h1>Happy Birthday! 🎂</h1>
-        <img style="width:100%; border-radius:20px;" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif">
-        <p>Kamu berhasil menyelesaikan semuanya! Sebagai imbalannya, silakan pilih satu permintaan yang harus aku kabuli:</p>
-        <button class="btn-next" onclick="alert('Permintaan Dicatat! Aku akan ajak kamu makan malam romantis ❤️')">🍝 Dinner Romantis</button>
-        <button class="btn-next" onclick="alert('Permintaan Dicatat! Kamu bebas request kado apa saja! 🎁')">🎁 Kado Bebas Pilih</button>
-        <p style="margin-top:20px; font-family:'Pacifico'; font-size:1.4rem; color:var(--pink-hot)">I Love You Forever & Always!</p>
-    </div>
-
-    <script>
-        const PIN_BENAR = "1302";
-        let currentPin = "";
-        
-        // --- DATA FOTO GAME (3 Pasang = 6 Kartu) ---
-        const photoLinks = [
-            'https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg',
-            'https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg',
-            'https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg'
-        ];
-        let gamePhotos = [...photoLinks, ...photoLinks];
-        let flippedCards = [];
-        let matchedCount = 0;
-
-        // --- PIN LOGIC ---
-        function addPin(n) {
-            if(currentPin.length < 4) {
-                currentPin += n;
-                updateDots();
-                if(currentPin.length === 4) setTimeout(checkPin, 300);
-            }
-        }
-        function updateDots() {
-            for(let i=1; i<=4; i++) document.getElementById('dot'+i).className = i <= currentPin.length ? 'dot active' : 'dot';
-        }
-        function clearPin() { currentPin = ""; updateDots(); }
-        function checkPin() {
-            if(currentPin === PIN_BENAR) {
-                transition('sec-lock', 'sec-story');
-                startFlowers();
-            } else {
-                alert("PIN Salah! Coba lagi sayang.");
-                clearPin();
-            }
-        }
-
-        function transition(oldId, newId) {
-            document.getElementById(oldId).classList.add('hidden');
-            document.getElementById(newId).classList.remove('hidden');
-            window.scrollTo(0,0);
-        }
-
-        // --- GAME LOGIC ---
-        function initGame() {
-            const grid = document.getElementById('grid');
-            grid.innerHTML = '';
-            gamePhotos.sort(() => Math.random() - 0.5).forEach((url, i) => {
-                const card = document.createElement('div');
-                card.className = 'm-card';
-                card.dataset.url = url;
-                card.innerHTML = `
-                    <div class="card-front">❤️</div>
-                    <img src="${url}">
-                `;
-                card.onclick = () => flipCard(card);
-                grid.appendChild(card);
-            });
-        }
-
-        function flipCard(card) {
-            if(flippedCards.length < 2 && !card.classList.contains('flipped')) {
-                card.classList.add('flipped');
-                flippedCards.push(card);
-                if(flippedCards.length === 2) setTimeout(checkMatch, 800);
-            }
-        }
-
-        function checkMatch() {
-            if(flippedCards[0].dataset.url === flippedCards[1].dataset.url) {
-                matchedCount++;
-                document.getElementById('game-info').innerText = `Pasangan: ${matchedCount}/3`;
-                if(matchedCount === 3) setTimeout(() => transition('sec-game', 'sec-final'), 500);
-            } else {
-                flippedCards.forEach(c => c.classList.remove('flipped'));
-            }
-            flippedCards = [];
-        }
-
-        // --- DECORATION ---
-        function startFlowers() {
-            setInterval(() => {
-                const f = document.createElement('div');
-                f.className = 'falling';
-                f.innerHTML = Math.random() > 0.5 ? '🌸' : '❤️';
-                f.style.left = Math.random() * 100 + 'vw';
-                f.style.fontSize = Math.random() * 20 + 10 + 'px';
-                f.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(f);
-                setTimeout(() => f.remove(), 5000);
-            }, 300);
-        }
-    </script>
-</body>
-</html>
+            <button class="num-btn" style="background

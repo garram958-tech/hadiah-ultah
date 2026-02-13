@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday!</title>
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff85a1;
+            --bg: #fff0f3;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: #590d22;
+            text-align: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .hidden { display: none !important; }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        input {
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--secondary);
+            margin-bottom: 10px;
+            width: 80%;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .gift-box {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .gift {
+            font-size: 40px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gift:hover { transform: scale(1.2); }
+        img { width: 100%; border-radius: 10px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="login-section" class="card">
+        <h2>🔒 Restricted Area</h2>
+        <p>Masukkan Password untuk Masuk:</p>
+        <input type="password" id="passInput" placeholder="Passwordnya apa?">
+        <br>
+        <button onclick="checkPass()">Buka</button>
+        <p id="error" style="color: red; font-size: 12px;" class="hidden">Password Salah! Petunjuk: "Tanggal jadian" atau "Nama panggilan"</p>
+    </div>
+
+    <div id="main-content" class="card hidden">
+        <h1>Happy Birthday! 🎂</h1>
+        <img src="https://images.unsplash.com/photo-1530103862676-fa8c9d34bb34?w=500" alt="Birthday">
+        <p>Selamat ulang tahun ya! Semoga harimu menyenangkan. Aku punya sesuatu buat kamu...</p>
+        <button onclick="showGame()">Main Game Dulu!</button>
+    </div>
+
+    <div id="game-section" class="card hidden">
+        <h3>Tebak Angka (1-10)</h3>
+        <p>Tebak angka keberuntungan hari ini untuk lihat hadiah!</p>
+        <input type="number" id="guessInput">
+        <br>
+        <button onclick="playGame()">Tebak!</button>
+        <p id="gameHint"></p>
+    </div>
+
+    <div id="gift-section" class="card hidden">
+        <h3>Pilih 1 Hadiah Kamu! 🎁</h3>
+        <div class="gift-box">
+            <div class="gift" onclick="chooseGift('Makan Malam Bareng 🍜')">🎁</div>
+            <div class="gift" onclick="chooseGift('Tiket Nonton Bebas Pilih 🍿')">🎁</div>
+            <div class="gift" onclick="chooseGift('Saldo E-Wallet 💸')">🎁</div>
+        </div>
+        <h4 id="giftResult" style="margin-top: 20px; color: var(--primary);"></h4>
+    </div>
+
+    <script>
+        // 1. GANTI PASSWORD DI SINI
+        const PASSWORD_BENAR = "1234"; 
+        const ANGKA_RAHASIA = Math.floor(Math.random() * 10) + 1;
+
+        function checkPass() {
+            const input = document.getElementById('passInput').value;
+            if(input === PASSWORD_BENAR) {
+                document.getElementById('login-section').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+            } else {
+                document.getElementById('error').classList.remove('hidden');
+            }
+        }
+
+        function showGame() {
+            document.getElementById('main-content').classList.add('hidden');
+            document.getElementById('game-section').classList.remove('hidden');
+        }
+
+        function playGame() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            const hint = document.getElementById('gameHint');
+            if(guess === ANGKA_RAHASIA) {
+                alert("Bener banget! Kamu hebat!");
+                document.getElementById('game-section').classList.add('hidden');
+                document.getElementById('gift-section').classList.remove('hidden');
+            } else if(guess < ANGKA_RAHASIA) {
+                hint.innerText = "Kekecilan! Coba lagi.";
+            } else {
+                hint.innerText = "Kebesaran! Coba lagi.";
+            }
+        }
+
+        function chooseGift(hadiah) {
+            document.getElementById('giftResult').innerText = "Kamu memilih: " + hadiah + "!\nScreenshot bagian ini dan kirim ke aku ya! ❤️";
+        }
+    </script>
+</body>
+</html>

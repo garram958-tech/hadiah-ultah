@@ -3,150 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Surprise ❤️</title>
+    <title>Birthday Special For You ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ff4d6d; --bg: #fff0f3; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .card { background: white; padding: 25px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 85%; max-width: 350px; text-align: center; z-index: 10; position: relative; }
+        :root { --pink: #ff4d6d; --soft: #fff0f3; --dark: #590d22; }
+        body { font-family: 'Quicksand', sans-serif; background: var(--soft); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; z-index: 10; border: 2px solid white; animation: fadeIn 0.5s; }
         .hidden { display: none !important; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; }
-        
-        /* PIN */
+        .btn { background: var(--pink); color: white; border: none; padding: 12px 20px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; transition: 0.3s; }
+        .btn:hover { transform: scale(1.05); }
+        h2 { font-family: 'Pacifico', cursive; color: var(--pink); }
+        p { color: var(--dark); line-height: 1.6; }
+
+        /* --- KUE CODING (ANTI GAGAL) --- */
+        .cake-container { position: relative; width: 150px; height: 120px; margin: 40px auto; cursor: pointer; }
+        .cake-base { position: absolute; bottom: 0; width: 150px; height: 80px; background: #f497ad; border-radius: 10px; border-bottom: 6px solid #e06c88; }
+        .cake-icing { position: absolute; top: 0; width: 150px; height: 20px; background: white; border-radius: 10px 10px 0 0; }
+        .candle { position: absolute; top: -35px; left: 70px; width: 10px; height: 40px; background: #ffeaec; border-radius: 5px; border: 1px solid #ddd; }
+        .flame { position: absolute; top: -22px; left: -2px; width: 15px; height: 22px; background: #ffca3a; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px #ffca3a; animation: flicker 0.1s infinite alternate; }
+        @keyframes flicker { from { transform: scale(1) rotate(-2deg); } to { transform: scale(1.1) rotate(2deg); } }
+
+        /* NUMPAD */
         .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
         .num { background: #fdf2f4; border: 1px solid #ffccd5; padding: 15px; border-radius: 50%; font-weight: bold; color: var(--pink); cursor: pointer; }
 
-        /* CAKE CSS */
-        .cake { position: relative; width: 100px; height: 60px; background: #f497ad; margin: 40px auto; border-radius: 10px; }
-        .candle { position: absolute; top: -30px; left: 45px; width: 10px; height: 30px; background: white; border-radius: 5px; }
-        .flame { position: absolute; top: -15px; left: -2.5px; width: 15px; height: 20px; background: orange; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px orange; animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { from { opacity: 0.8; } to { opacity: 1; } }
+        /* GAME CATCH */
+        #game-box { background: #fff5f7; border-radius: 15px; border: 2px dashed var(--pink); position: relative; height: 200px; overflow: hidden; margin: 15px 0; touch-action: none; }
+        .basket { position: absolute; bottom: 5px; width: 50px; height: 15px; background: var(--pink); border-radius: 5px; }
+        .falling-heart { position: absolute; font-size: 20px; }
 
-        /* GAME CATCH LOVE */
-        #game-canvas { background: #fff5f7; border-radius: 15px; margin-top: 10px; touch-action: none; border: 2px dashed var(--pink); }
-        
-        .gallery img { width: 100%; border-radius: 15px; margin-top: 10px; border: 3px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .heart-bg { position: absolute; color: #ffb6c1; animation: float 6s infinite linear; pointer-events: none; }
-        @keyframes float { from { transform: translateY(100vh); } to { transform: translateY(-10vh); } }
+        /* ANIMASI BG */
+        .floating { position: absolute; color: #ffb6c1; animation: floatUp 8s infinite linear; z-index: 1; pointer-events: none; }
+        @keyframes floatUp { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-<audio id="bdaySong" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" preload="auto"></audio>
+<div id="bg-elements"></div>
+
+<audio id="bdaySong" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
 
 <div id="s1" class="card">
-    <h2 style="color: var(--pink)">🔒 Private Lock</h2>
-    <p>Masukkan PIN (1302)</p>
-    <div id="dots" style="font-size: 24px; color: var(--pink); letter-spacing: 5px; margin: 10px;">____</div>
+    <h2>🔒 Private Lock</h2>
+    <p>Masukkan tanggal spesial kita (1302)</p>
+    <div id="pin-display" style="font-size: 24px; color: var(--pink); letter-spacing: 5px; font-weight: bold;">____</div>
     <div class="numpad">
-        <button class="num" onclick="p(1)">1</button><button class="num" onclick="p(2)">2</button><button class="num" onclick="p(3)">3</button>
-        <button class="num" onclick="p(4)">4</button><button class="num" onclick="p(5)">5</button><button class="num" onclick="p(6)">6</button>
-        <button class="num" onclick="p(7)">7</button><button class="num" onclick="p(8)">8</button><button class="num" onclick="p(9)">9</button>
-        <button class="num" style="visibility:hidden"></button><button class="num" onclick="p(0)">0</button><button class="num" onclick="cl()">C</button>
+        <button class="num" onclick="inputPin('1')">1</button><button class="num" onclick="inputPin('2')">2</button><button class="num" onclick="inputPin('3')">3</button>
+        <button class="num" onclick="inputPin('4')">4</button><button class="num" onclick="inputPin('5')">5</button><button class="num" onclick="inputPin('6')">6</button>
+        <button class="num" onclick="inputPin('7')">7</button><button class="num" onclick="inputPin('8')">8</button><button class="num" onclick="inputPin('9')">9</button>
+        <button class="num" style="visibility:hidden"></button><button class="num" onclick="inputPin('0')">0</button><button class="num" onclick="clr()">C</button>
     </div>
 </div>
 
 <div id="s2" class="card hidden">
-    <h2 style="color: var(--pink)">Make a Wish! 🎂</h2>
-    <p>Tap apinya untuk tiup lilin!</p>
-    <div class="cake" onclick="tiup()">
-        <div id="api" class="flame"></div>
-        <div class="candle"></div>
+    <h2>Make a Wish! 🎂</h2>
+    <p>Ketuk apinya untuk meniup lilin...</p>
+    <div class="cake-container" onclick="blowOut()">
+        <div class="candle"><div id="api" class="flame"></div></div>
+        <div class="cake-base"><div class="cake-icing"></div></div>
     </div>
-    <div id="msg" class="hidden">
-        <p><i>"Semoga kita selamanya..."</i></p>
-        <button class="btn" onclick="go(2,3)">Buka Cerita Kita ❤️</button>
+    <div id="wish-text" class="hidden">
+        <p><i>"Semoga bahagia selalu bersamaku..."</i></p>
+        <button class="btn" onclick="next(2,3)">Buka Kisah Kita ❤️</button>
     </div>
 </div>
 
 <div id="s3" class="card hidden">
-    <h2 style="color: var(--pink)">Awal Bertemu ✨</h2>
-    <p>"Dulu kita hanya orang asing, sampai akhirnya takdir mempertemukan kita. Terima kasih telah menjadi bagian terindah dalam hidupku."</p>
-    <div class="gallery">
-        <img src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
-    </div>
-    <button class="btn" onclick="go(3,4)">Main Game Tangkap Hati 🎮</button>
+    <h2>Awal Segalanya... ✨</h2>
+    <p>"Masih ingat saat pertama kali kita bertemu? Hari itu aku tidak pernah menyangka bahwa sapaan sederhana akan menjadi awal perjalanan terindah hidupku."</p>
+    <p>Kamu adalah kejutan terbaik yang pernah Tuhan berikan padaku.</p>
+    <button class="btn" onclick="next(3,4)">Teka-Teki Cinta 🧩</button>
 </div>
 
 <div id="s4" class="card hidden">
-    <h2 style="color: var(--pink)">Tangkap Hatiku! ❤️</h2>
-    <p>Geser keranjang untuk tangkap 5 hati!</p>
-    <canvas id="game-canvas" width="280" height="200"></canvas>
-    <p id="score">Skor: 0</p>
+    <h2>Teka-Teki Cinta 🧩</h2>
+    <p>Siapa nama orang yang paling mencintaimu di dunia ini? (Ketik "Aku")</p>
+    <input type="text" id="ans" style="width: 80%; padding: 10px; border-radius: 10px; border: 1px solid var(--pink); text-align: center;">
+    <button class="btn" onclick="checkPuzzle()">Jawab</button>
 </div>
 
 <div id="s5" class="card hidden">
-    <h2 style="color: var(--pink)">HBD Sayang! 🎂❤️</h2>
-    <p>Kamu berhasil menangkap hatiku (dan memang sudah memilikinya). I Love You!</p>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif" width="100%">
-    <button class="btn" onclick="location.reload()">Mulai Lagi</button>
+    <h2>Tangkap Hatiku! 🎮</h2>
+    <p>Tangkap 5 hati untuk buka kado!</p>
+    <div id="game-box">
+        <div id="basket" class="basket"></div>
+    </div>
+    <p id="score">Skor: 0</p>
+</div>
+
+<div id="s6" class="card hidden">
+    <h2>Happy Birthday Sayang! ❤️</h2>
+    <p>Kamu berhasil! Hadiahnya adalah aku yang akan selalu menjagamu hari ini, esok, dan selamanya.</p>
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif" width="100%" style="border-radius: 15px;">
+    <button class="btn" onclick="location.reload()">Ulangi Momen</button>
 </div>
 
 <script>
-    let pin = "";
-    function p(n) {
-        if(pin.length < 4) pin += n;
-        document.getElementById('dots').innerText = "*".repeat(pin.length);
-        if(pin === "1302") go(1,2);
-        else if(pin.length === 4) { alert("PIN Salah!"); cl(); }
-    }
-    function cl() { pin = ""; document.getElementById('dots').innerText = "____"; }
-    
-    function go(o, n) {
-        document.getElementById('s'+o).classList.add('hidden');
-        document.getElementById('s'+n).classList.remove('hidden');
-        if(n === 4) initGame();
-    }
-
-    function tiup() {
-        document.getElementById('api').classList.add('hidden');
-        document.getElementById('bdaySong').play();
-        document.getElementById('msg').classList.remove('hidden');
-    }
-
-    // GAME LOGIC
-    function initGame() {
-        const canvas = document.getElementById('game-canvas');
-        const ctx = canvas.getContext('2d');
-        let score = 0;
-        let basketX = 120;
-        let hearts = [];
-
-        canvas.addEventListener('touchmove', (e) => {
-            let rect = canvas.getBoundingClientRect();
-            basketX = e.touches[0].clientX - rect.left - 20;
-        });
-
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            // Basket
-            ctx.fillStyle = '#ff4d6d';
-            ctx.fillRect(basketX, 180, 40, 10);
-            
-            if(Math.random() < 0.03) hearts.push({x: Math.random()*260, y: 0});
-            
-            hearts.forEach((h, i) => {
-                h.y += 3;
-                ctx.fillText('❤️', h.x, h.y);
-                if(h.y > 180 && h.x > basketX && h.x < basketX + 40) {
-                    hearts.splice(i, 1); score++;
-                    document.getElementById('score').innerText = "Skor: " + score;
-                }
-                if(score >= 5) { score = 0; go(4,5); }
-            });
-            if(!document.getElementById('s4').classList.contains('hidden')) requestAnimationFrame(draw);
-        }
-        draw();
-    }
-
-    // Floating Hearts Background
-    setInterval(() => {
-        const h = document.createElement('div');
-        h.className = 'heart-bg'; h.innerHTML = '❤️';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.fontSize = Math.random() * 20 + 10 + 'px';
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 6000);
-    }, 500);
-</script>
-</body>
-</html>
+    let pInput = "";
+    function inputPin(n) {
+        if(pInput.length < 4) pInput += n;
+        document.getElementById('pin-display').innerText = "*".repeat(pInput.length);
+        if(pInput === "1302") next(1,2);
+        else if(pInput.

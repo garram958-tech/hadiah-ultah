@@ -3,171 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Special For You ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <title>Our Love Journey ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ff4d6d; --soft: #fff0f3; --dark: #590d22; }
-        body { font-family: 'Quicksand', sans-serif; background: var(--soft); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; z-index: 10; border: 2px solid white; animation: fadeIn 0.5s; }
+        :root { --pink: #ff4d6d; --pink-bg: #fff0f3; --text: #590d22; }
+        body { font-family: 'Quicksand', sans-serif; background: var(--pink-bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; position: relative; z-index: 10; border: 2px solid white; }
         .hidden { display: none !important; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px 20px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; transition: 0.3s; }
-        .btn:hover { transform: scale(1.05); }
-        h2 { font-family: 'Pacifico', cursive; color: var(--pink); }
-        p { color: var(--dark); line-height: 1.6; }
+        h2 { font-family: 'Pacifico', cursive; color: var(--pink); margin-top: 0; }
+        p { color: var(--text); line-height: 1.6; font-size: 14px; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px 20px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; }
+        
+        /* KUE CSS RINGAN */
+        .cake-box { position: relative; width: 120px; height: 100px; margin: 30px auto; cursor: pointer; }
+        .cake-layer { width: 120px; height: 60px; background: #f497ad; border-radius: 10px; position: absolute; bottom: 0; border-bottom: 5px solid #e06c88; }
+        .cake-top { width: 120px; height: 20px; background: white; border-radius: 10px 10px 0 0; position: absolute; top: 20px; }
+        .candle { width: 8px; height: 30px; background: #eee; position: absolute; top: -10px; left: 56px; border-radius: 4px; }
+        .flame { width: 12px; height: 18px; background: orange; position: absolute; top: -15px; left: -2px; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px orange; animation: flicker 0.1s infinite alternate; }
+        @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        /* --- KUE CODING (ANTI GAGAL) --- */
-        .cake-container { position: relative; width: 150px; height: 120px; margin: 40px auto; cursor: pointer; }
-        .cake-base { position: absolute; bottom: 0; width: 150px; height: 80px; background: #f497ad; border-radius: 10px; border-bottom: 6px solid #e06c88; }
-        .cake-icing { position: absolute; top: 0; width: 150px; height: 20px; background: white; border-radius: 10px 10px 0 0; }
-        .candle { position: absolute; top: -35px; left: 70px; width: 10px; height: 40px; background: #ffeaec; border-radius: 5px; border: 1px solid #ddd; }
-        .flame { position: absolute; top: -22px; left: -2px; width: 15px; height: 22px; background: #ffca3a; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px #ffca3a; animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { from { transform: scale(1) rotate(-2deg); } to { transform: scale(1.1) rotate(2deg); } }
-
-        /* NUMPAD */
-        .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
-        .num { background: #fdf2f4; border: 1px solid #ffccd5; padding: 15px; border-radius: 50%; font-weight: bold; color: var(--pink); cursor: pointer; }
+        /* FOTO GRID */
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .photo-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 15px; border: 2px solid var(--pink); }
 
         /* GAME CATCH */
-        #game-box { background: #fff5f7; border-radius: 15px; border: 2px dashed var(--pink); position: relative; height: 200px; overflow: hidden; margin: 15px 0; touch-action: none; }
-        .basket { position: absolute; bottom: 5px; width: 50px; height: 15px; background: var(--pink); border-radius: 5px; }
-        .falling-heart { position: absolute; font-size: 20px; }
+        #game-area { background: #fff5f7; border: 2px dashed var(--pink); height: 180px; position: relative; overflow: hidden; border-radius: 15px; touch-action: none; }
+        .player { position: absolute; bottom: 5px; width: 50px; height: 10px; background: var(--pink); border-radius: 5px; }
 
-        /* ANIMASI BG */
-        .floating { position: absolute; color: #ffb6c1; animation: floatUp 8s infinite linear; z-index: 1; pointer-events: none; }
+        .heart-bg { position: fixed; color: #ffb6c1; animation: floatUp 7s infinite linear; z-index: 1; pointer-events: none; }
         @keyframes floatUp { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-<div id="bg-elements"></div>
+<div id="bg-hearts"></div>
+<audio id="hbdAudio" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
 
-<audio id="bdaySong" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
-
-<div id="s1" class="card">
-    <h2>🔒 Private Lock</h2>
+<div id="g1" class="card">
+    <h2>🔒 Love Lock</h2>
     <p>Masukkan tanggal spesial kita (1302)</p>
-    <div id="pin-display" style="font-size: 24px; color: var(--pink); letter-spacing: 5px; font-weight: bold;">____</div>
-    <div class="numpad">
-        <button class="num" onclick="inputPin('1')">1</button><button class="num" onclick="inputPin('2')">2</button><button class="num" onclick="inputPin('3')">3</button>
-        <button class="num" onclick="inputPin('4')">4</button><button class="num" onclick="inputPin('5')">5</button><button class="num" onclick="inputPin('6')">6</button>
-        <button class="num" onclick="inputPin('7')">7</button><button class="num" onclick="inputPin('8')">8</button><button class="num" onclick="inputPin('9')">9</button>
-        <button class="num" style="visibility:hidden"></button><button class="num" onclick="inputPin('0')">0</button><button class="num" onclick="clr()">C</button>
+    <div id="pin-dots" style="font-size: 24px; color: var(--pink); letter-spacing: 5px;">____</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 15px;">
+        <button class="btn" style="margin:0" onclick="inP('1')">1</button><button class="btn" style="margin:0" onclick="inP('2')">2</button><button class="btn" style="margin:0" onclick="inP('3')">3</button>
+        <button class="btn" style="margin:0" onclick="inP('4')">4</button><button class="btn" style="margin:0" onclick="inP('5')">5</button><button class="btn" style="margin:0" onclick="inP('6')">6</button>
+        <button class="btn" style="margin:0" onclick="inP('7')">7</button><button class="btn" style="margin:0" onclick="inP('8')">8</button><button class="btn" style="margin:0" onclick="inP('9')">9</button>
+        <button class="btn" style="margin:0; background:#ccc" onclick="clP()">C</button><button class="btn" style="margin:0" onclick="inP('0')">0</button>
     </div>
 </div>
 
-<div id="s2" class="card hidden">
+<div id="g2" class="card hidden">
     <h2>Make a Wish! 🎂</h2>
-    <p>Ketuk apinya untuk meniup lilin...</p>
-    <div class="cake-container" onclick="blowOut()">
+    <p>Ketuk apinya untuk tiup lilin!</p>
+    <div class="cake-box" onclick="blow()">
         <div class="candle"><div id="api" class="flame"></div></div>
-        <div class="cake-base"><div class="cake-icing"></div></div>
+        <div class="cake-layer"><div class="cake-top"></div></div>
     </div>
-    <div id="wish-text" class="hidden">
-        <p><i>"Semoga bahagia selalu bersamaku..."</i></p>
-        <button class="btn" onclick="next(2,3)">Buka Kisah Kita ❤️</button>
-    </div>
-</div>
-
-<div id="s3" class="card hidden">
-    <h2>Awal Segalanya... ✨</h2>
-    <p>"Masih ingat saat pertama kali kita bertemu? Hari itu aku tidak pernah menyangka bahwa sapaan sederhana akan menjadi awal perjalanan terindah hidupku."</p>
-    <p>Kamu adalah kejutan terbaik yang pernah Tuhan berikan padaku.</p>
-    <button class="btn" onclick="next(3,4)">Teka-Teki Cinta 🧩</button>
-</div>
-
-<div id="s4" class="card hidden">
-    <h2>Teka-Teki Cinta 🧩</h2>
-    <p>Siapa nama orang yang paling mencintaimu di dunia ini? (Ketik "Aku")</p>
-    <input type="text" id="ans" style="width: 80%; padding: 10px; border-radius: 10px; border: 1px solid var(--pink); text-align: center;">
-    <button class="btn" onclick="checkPuzzle()">Jawab</button>
-</div>
-
-<div id="s5" class="card hidden">
-    <h2>Tangkap Hatiku! 🎮</h2>
-    <p>Tangkap 5 hati untuk buka kado!</p>
-    <div id="game-box">
-        <div id="basket" class="basket"></div>
-    </div>
-    <p id="score">Skor: 0</p>
-</div>
-
-<div id="s6" class="card hidden">
-    <h2>Happy Birthday Sayang! ❤️</h2>
-    <p>Kamu berhasil! Hadiahnya adalah aku yang akan selalu menjagamu hari ini, esok, dan selamanya.</p>
-    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif" width="100%" style="border-radius: 15px;">
-    <button class="btn" onclick="location.reload()">Ulangi Momen</button>
-</div>
-
-<script>
-    let pInput = "";
-    function inputPin(n) {
-        if(pInput.length < 4) pInput += n;
-        document.getElementById('pin-display').innerText = "*".repeat(pInput.length);
-        if(pInput === "1302") next(1,2);
-        else if(pInput.length === 4) { alert("PIN Salah!"); clr(); }
-    }
-    function clr() { pInput = ""; document.getElementById('pin-display').innerText = "____"; }
-
-    function blowOut() {
-        document.getElementById('api').classList.add('hidden');
-        document.getElementById('bdaySong').play();
-        document.getElementById('wish-text').classList.remove('hidden');
-    }
-
-    function next(o, n) {
-        document.getElementById('s'+o).classList.add('hidden');
-        document.getElementById('s'+n).classList.remove('hidden');
-        if(n === 5) startGame();
-    }
-
-    function checkPuzzle() {
-        let val = document.getElementById('ans').value.toLowerCase();
-        if(val.includes("aku")) next(4,5); else alert("Coba lagi sayang...");
-    }
-
-    // GAME LOGIC
-    function startGame() {
-        const box = document.getElementById('game-box');
-        const basket = document.getElementById('basket');
-        let score = 0;
-        let bPos = 135;
-
-        box.addEventListener('touchmove', (e) => {
-            let rect = box.getBoundingClientRect();
-            bPos = e.touches[0].clientX - rect.left - 25;
-            if(bPos < 0) bPos = 0; if(bPos > 230) bPos = 230;
-            basket.style.left = bPos + 'px';
-        });
-
-        let gameInt = setInterval(() => {
-            let h = document.createElement('div');
-            h.className = 'falling-heart'; h.innerHTML = '❤️';
-            h.style.left = Math.random() * 260 + 'px';
-            h.style.top = '0px';
-            box.appendChild(h);
-
-            let fallInt = setInterval(() => {
-                let top = parseInt(h.style.top);
-                h.style.top = (top + 4) + 'px';
-                if(top > 170 && parseInt(h.style.left) > bPos - 20 && parseInt(h.style.left) < bPos + 50) {
-                    score++; document.getElementById('score').innerText = "Skor: " + score;
-                    h.remove(); clearInterval(fallInt);
-                    if(score >= 5) { clearInterval(gameInt); next(5,6); }
-                }
-                if(top > 200) { h.remove(); clearInterval(fallInt); }
-            }, 20);
-        }, 800);
-    }
-
-    // BG Animation
-    setInterval(() => {
-        let h = document.createElement('div');
-        h.className = 'floating'; h.innerHTML = '❤️';
-        h.style.left = Math.random() * 100 + 'vw';
-        h.style.fontSize = (Math.random() * 20 + 10) + 'px';
-        document.getElementById('bg-elements').appendChild(h);
-        setTimeout(() => h.remove(), 8000);
-    }, 600);
-</script>
-</body>
-</html>
+    <div id="after-blow" class="hidden">
+        <p><i>"Semoga kita selalu bersama..."</i></p>
+        <button class="btn" onclick="nxt

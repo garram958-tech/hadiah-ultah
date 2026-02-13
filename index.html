@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Birthday for You ❤️</title>
+    <title>Kisah Abadi Kita ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -22,186 +22,219 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
-            /* Background Pita & Love */
             background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z4ZnNpZGx6cmVqN2V3ajd6N2p4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0CLfF5eD9yH29BmM/giphy.gif');
             background-size: cover;
+            background-attachment: fixed;
         }
 
         .hidden { display: none !important; }
 
-        /* --- KARTU UTAMA --- */
         .card {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             padding: 25px;
             border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            max-width: 420px;
             width: 85%;
             text-align: center;
             border: 3px solid var(--pink-light);
-            animation: fadeIn 0.8s ease-out;
+            animation: slideUp 0.8s ease-out;
             position: relative;
             z-index: 10;
+            margin: 20px 0;
         }
 
-        /* --- NUMPAD LOCKSCREEN --- */
+        /* --- LOCKSCREEN --- */
         .pin-dots { display: flex; justify-content: center; gap: 15px; margin: 20px 0; }
         .dot { width: 15px; height: 15px; border: 2px solid var(--pink-hot); border-radius: 50%; }
-        .dot.active { background-color: var(--pink-hot); }
+        .dot.active { background-color: var(--pink-hot); box-shadow: 0 0 10px var(--pink-hot); }
         .numpad { display: grid; grid-template-columns: repeat(3, 70px); gap: 15px; justify-content: center; }
         .num-btn { 
             width: 70px; height: 70px; border-radius: 50%; border: none; 
             background: white; font-size: 20px; font-weight: bold; 
             color: var(--pink-hot); box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer;
         }
-        .num-btn:active { background: var(--pink-light); color: white; }
+        .num-btn:active { background: var(--pink-light); color: white; transform: scale(0.9); }
 
-        /* --- GAMBAR --- */
-        .main-img { 
-            width: 100%; border-radius: 20px; border: 3px solid var(--pink-light);
-            margin-bottom: 15px; object-fit: cover;
+        /* --- GALLERY --- */
+        .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .gallery-img { width: 100%; height: 120px; object-fit: cover; border-radius: 15px; border: 2px solid var(--pink-light); }
+
+        /* --- MEMORY GAME FOTO --- */
+        .memory-game { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .m-card { 
+            height: 100px; background: var(--pink-light); border-radius: 12px; 
+            position: relative; cursor: pointer; transform-style: preserve-3d; transition: 0.6s;
+        }
+        .m-card.flipped { transform: rotateY(180deg); }
+        .m-card img { 
+            width: 100%; height: 100%; object-fit: cover; border-radius: 12px;
+            position: absolute; backface-visibility: hidden; transform: rotateY(180deg);
+        }
+        .card-front { 
+            width: 100%; height: 100%; background: var(--pink-hot); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;
+            position: absolute; backface-visibility: hidden;
         }
 
-        /* --- TEKS & TOMBOL --- */
+        /* --- TYPOGRAPHY --- */
         h1 { font-family: 'Pacifico', cursive; color: var(--pink-hot); font-size: 1.8rem; }
-        h2 { font-family: 'Dancing Script', cursive; color: var(--pink-hot); font-size: 2rem; }
-        p { color: var(--text-dark); line-height: 1.5; font-size: 0.95rem; }
+        h2 { font-family: 'Dancing Script', cursive; color: var(--pink-hot); font-size: 2.2rem; }
+        p { line-height: 1.6; font-size: 0.95rem; color: var(--text-dark); }
         .btn-next {
-            background: var(--pink-hot); color: white; border: none; 
-            padding: 12px 25px; border-radius: 15px; font-weight: bold; cursor: pointer;
-            margin-top: 15px; width: 100%;
+            background: var(--pink-hot); color: white; border: none; padding: 12px 25px;
+            border-radius: 15px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 15px;
         }
 
-        /* --- GAMES & GIFTS --- */
-        .gift-container { display: flex; justify-content: space-around; margin-top: 20px; }
-        .gift-box { font-size: 40px; cursor: pointer; transition: 0.3s; }
-        .gift-box:hover { transform: scale(1.2); }
-
-        /* --- ANIMASI --- */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .heart-rain { position: absolute; pointer-events: none; animation: heartFall 5s linear infinite; }
-        @keyframes heartFall { 0% { transform: translateY(-10vh); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(100vh); opacity: 0; } }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .falling { position: absolute; pointer-events: none; z-index: 1; animation: fall linear forwards; }
+        @keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div id="section-pin" class="card">
-        <h2>🔒 Masukkan Kode Rahasia</h2>
-        <p>Hanya yang punya kunci yang bisa masuk!</p>
+    <div id="sec-lock" class="card">
+        <h2>🔒 Private Access</h2>
+        <p>Gunakan PIN rahasia untuk membuka kenangan kita...</p>
         <div class="pin-dots">
             <div class="dot" id="dot1"></div><div class="dot" id="dot2"></div>
             <div class="dot" id="dot3"></div><div class="dot" id="dot4"></div>
         </div>
         <div class="numpad">
-            <button class="num-btn" onclick="pressNum('1')">1</button>
-            <button class="num-btn" onclick="pressNum('2')">2</button>
-            <button class="num-btn" onclick="pressNum('3')">3</button>
-            <button class="num-btn" onclick="pressNum('4')">4</button>
-            <button class="num-btn" onclick="pressNum('5')">5</button>
-            <button class="num-btn" onclick="pressNum('6')">6</button>
-            <button class="num-btn" onclick="pressNum('7')">7</button>
-            <button class="num-btn" onclick="pressNum('8')">8</button>
-            <button class="num-btn" onclick="pressNum('9')">9</button>
-            <button class="num-btn" style="box-shadow:none; background:none;" onclick="clearPin()">C</button>
-            <button class="num-btn" onclick="pressNum('0')">0</button>
-            <button class="num-btn" style="box-shadow:none; background:none; font-size:12px;" onclick="alert('Clue: 1302')">Hint</button>
+            <button class="num-btn" onclick="addPin('1')">1</button>
+            <button class="num-btn" onclick="addPin('2')">2</button>
+            <button class="num-btn" onclick="addPin('3')">3</button>
+            <button class="num-btn" onclick="addPin('4')">4</button>
+            <button class="num-btn" onclick="addPin('5')">5</button>
+            <button class="num-btn" onclick="addPin('6')">6</button>
+            <button class="num-btn" onclick="addPin('7')">7</button>
+            <button class="num-btn" onclick="addPin('8')">8</button>
+            <button class="num-btn" onclick="addPin('9')">9</button>
+            <button class="num-btn" style="background:none; box-shadow:none;" onclick="clearPin()">C</button>
+            <button class="num-btn" onclick="addPin('0')">0</button>
+            <button class="num-btn" style="background:none; box-shadow:none; font-size:12px;" onclick="alert('Clue: 1302')">Hint</button>
         </div>
     </div>
 
-    <div id="section-story" class="card hidden">
-        <h1>Kisah Kita Dimulai... ❤️</h1>
-        <img class="main-img" src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg" alt="Awal Bertemu">
-        <p>Ingat tidak saat kita pertama kali bertemu? Rasanya dunia langsung berubah jadi pink! Kamu datang dengan senyuman yang paling manis...</p>
-        <button class="btn-next" onclick="showSection('section-game')">Main Game Dulu ✨</button>
-    </div>
-
-    <div id="section-game" class="card hidden">
-        <h2>Game Tebak Angka 🎲</h2>
-        <p>Tebak angka keberuntunganmu hari ini (1-10) untuk melihat kado!</p>
-        <input type="number" id="guessInput" style="padding: 10px; border-radius: 10px; border: 1px solid var(--pink-hot); width: 50px;">
-        <br>
-        <button class="btn-next" onclick="checkGame()">Tebak!</button>
-        <p id="gameResult"></p>
-    </div>
-
-    <div id="section-gift" class="card hidden">
-        <h2>Pilih Kado Kamu! 🎁</h2>
-        <p>Klik salah satu kotak di bawah ini ya!</p>
-        <div class="gift-container">
-            <div class="gift-box" onclick="showFinal('Makan Malam Romantis 🍝')">🎁</div>
-            <div class="gift-box" onclick="showFinal('Bebas Request Apa Saja 👑')">🎁</div>
-            <div class="gift-box" onclick="showFinal('Saldo E-Wallet / Jajan 💸')">🎁</div>
+    <div id="sec-story" class="card hidden">
+        <h2>Untuk Kamu, Sayang ❤️</h2>
+        <p>"Dalam setiap detak jantungku, ada namamu. Terima kasih telah menjadi bagian terindah dalam hidupku."</p>
+        <div class="gallery-grid">
+            <img class="gallery-img" src="https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg">
+            <img class="gallery-img" src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
+            <img class="gallery-img" src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg">
+            <img class="gallery-img" src="https://i.pinimg.com/736x/43/0e/65/430e653063510c4309e53995893375c3.jpg">
         </div>
+        <p>Melihat foto-foto ini mengingatkanku betapa beruntungnya aku memilikimu. Siap untuk tantangan kecil?</p>
+        <button class="btn-next" onclick="transition('sec-story', 'sec-game'); initGame();">Mainkan Game Memori Foto 🧩</button>
     </div>
 
-    <div id="section-final" class="card hidden">
+    <div id="sec-game" class="card hidden">
+        <h2>Uji Ingatan Cintamu ✨</h2>
+        <p>Temukan pasangan foto yang sama untuk membuka kejutan akhir!</p>
+        <div class="memory-game" id="grid"></div>
+        <p id="game-info" style="font-size: 13px; margin-top: 15px; font-weight: bold;">Pasangan: 0/3</p>
+    </div>
+
+    <div id="sec-final" class="card hidden">
         <h1>Happy Birthday! 🎂</h1>
-        <p id="giftResultText"></p>
-        <p>Terima kasih sudah ada di hidupku. I love you more than anything! 💖</p>
-        <button class="btn-next" onclick="location.reload()">Buka Lagi</button>
+        <img style="width:100%; border-radius:20px;" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif">
+        <p>Kamu berhasil menyelesaikan semuanya! Sebagai imbalannya, silakan pilih satu permintaan yang harus aku kabuli:</p>
+        <button class="btn-next" onclick="alert('Permintaan Dicatat! Aku akan ajak kamu makan malam romantis ❤️')">🍝 Dinner Romantis</button>
+        <button class="btn-next" onclick="alert('Permintaan Dicatat! Kamu bebas request kado apa saja! 🎁')">🎁 Kado Bebas Pilih</button>
+        <p style="margin-top:20px; font-family:'Pacifico'; font-size:1.4rem; color:var(--pink-hot)">I Love You Forever & Always!</p>
     </div>
 
     <script>
-        const PIN_BENAR = "1302"; // GANTI PIN DI SINI
-        let pinInput = "";
-        const luckyNumber = Math.floor(Math.random() * 10) + 1;
+        const PIN_BENAR = "1302";
+        let currentPin = "";
+        
+        // --- DATA FOTO GAME (3 Pasang = 6 Kartu) ---
+        const photoLinks = [
+            'https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg',
+            'https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg',
+            'https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg'
+        ];
+        let gamePhotos = [...photoLinks, ...photoLinks];
+        let flippedCards = [];
+        let matchedCount = 0;
 
-        function pressNum(n) {
-            if(pinInput.length < 4) {
-                pinInput += n;
+        // --- PIN LOGIC ---
+        function addPin(n) {
+            if(currentPin.length < 4) {
+                currentPin += n;
                 updateDots();
-                if(pinInput.length === 4) setTimeout(validatePin, 300);
+                if(currentPin.length === 4) setTimeout(checkPin, 300);
             }
         }
-
         function updateDots() {
-            for(let i=1; i<=4; i++) {
-                document.getElementById('dot'+i).classList.toggle('active', i <= pinInput.length);
-            }
+            for(let i=1; i<=4; i++) document.getElementById('dot'+i).className = i <= currentPin.length ? 'dot active' : 'dot';
         }
-
-        function clearPin() { pinInput = ""; updateDots(); }
-
-        function validatePin() {
-            if(pinInput === PIN_BENAR) {
-                showSection('section-story');
-                makeHearts();
+        function clearPin() { currentPin = ""; updateDots(); }
+        function checkPin() {
+            if(currentPin === PIN_BENAR) {
+                transition('sec-lock', 'sec-story');
+                startFlowers();
             } else {
-                alert("PIN Salah sayang! Coba lagi.");
+                alert("PIN Salah! Coba lagi sayang.");
                 clearPin();
             }
         }
 
-        function showSection(id) {
-            document.querySelectorAll('.card').forEach(c => c.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
+        function transition(oldId, newId) {
+            document.getElementById(oldId).classList.add('hidden');
+            document.getElementById(newId).classList.remove('hidden');
+            window.scrollTo(0,0);
         }
 
-        function checkGame() {
-            const val = document.getElementById('guessInput').value;
-            if(val == luckyNumber) {
-                alert("Bener banget! Kamu emang hoki!");
-                showSection('section-gift');
+        // --- GAME LOGIC ---
+        function initGame() {
+            const grid = document.getElementById('grid');
+            grid.innerHTML = '';
+            gamePhotos.sort(() => Math.random() - 0.5).forEach((url, i) => {
+                const card = document.createElement('div');
+                card.className = 'm-card';
+                card.dataset.url = url;
+                card.innerHTML = `
+                    <div class="card-front">❤️</div>
+                    <img src="${url}">
+                `;
+                card.onclick = () => flipCard(card);
+                grid.appendChild(card);
+            });
+        }
+
+        function flipCard(card) {
+            if(flippedCards.length < 2 && !card.classList.contains('flipped')) {
+                card.classList.add('flipped');
+                flippedCards.push(card);
+                if(flippedCards.length === 2) setTimeout(checkMatch, 800);
+            }
+        }
+
+        function checkMatch() {
+            if(flippedCards[0].dataset.url === flippedCards[1].dataset.url) {
+                matchedCount++;
+                document.getElementById('game-info').innerText = `Pasangan: ${matchedCount}/3`;
+                if(matchedCount === 3) setTimeout(() => transition('sec-game', 'sec-final'), 500);
             } else {
-                document.getElementById('gameResult').innerText = val < luckyNumber ? "Kekecilan!" : "Kebesaran!";
+                flippedCards.forEach(c => c.classList.remove('flipped'));
             }
+            flippedCards = [];
         }
 
-        function showFinal(prize) {
-            document.getElementById('giftResultText').innerHTML = "Kamu dapet hadiah: <br><b>" + prize + "</b>";
-            showSection('section-final');
-        }
-
-        function makeHearts() {
-            for(let i=0; i<15; i++) {
-                let h = document.createElement('div');
-                h.innerHTML = "❤️";
-                h.className = "heart-rain";
-                h.style.left = Math.random() * 100 + "vw";
-                h.style.fontSize = Math.random() * 20 + 10 + "px";
-                h.style.animationDuration = Math.random() * 3 + 2 + "s";
-                document.body.appendChild(h);
-            }
+        // --- DECORATION ---
+        function startFlowers() {
+            setInterval(() => {
+                const f = document.createElement('div');
+                f.className = 'falling';
+                f.innerHTML = Math.random() > 0.5 ? '🌸' : '❤️';
+                f.style.left = Math.random() * 100 + 'vw';
+                f.style.fontSize = Math.random() * 20 + 10 + 'px';
+                f.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(f);
+                setTimeout(() => f.remove(), 5000);
+            }, 300);
         }
     </script>
 </body>

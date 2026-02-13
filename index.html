@@ -3,154 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Special Story ❤️</title>
+    <title>Birthday Journey For You ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root { --pink: #ff4d6d; --bg: #fff0f3; --text: #590d22; }
         body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; touch-action: manipulation; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; position: relative; z-index: 10; border: 2px solid white; }
+        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; border: 2px solid white; animation: fadeIn 0.5s; position: relative; z-index: 10; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
         .hidden { display: none !important; }
-        h2 { font-family: 'Pacifico', cursive; color: var(--pink); margin: 10px 0; }
-        p { color: var(--text); line-height: 1.6; font-size: 14px; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; box-shadow: 0 4px 0 #d63351; transition: 0.1s; }
-        .btn:active { transform: translateY(2px); box-shadow: none; }
-
-        /* KUE & LILIN */
-        .cake { width: 100px; height: 60px; background: #f497ad; margin: 40px auto; border-radius: 10px; position: relative; }
-        .candle { width: 8px; height: 30px; background: #eee; position: absolute; top: -30px; left: 46px; border-radius: 4px; }
-        .flame { width: 14px; height: 20px; background: orange; position: absolute; top: -18px; left: -3px; border-radius: 50% 50% 20% 20%; animation: flick 0.1s infinite; box-shadow: 0 0 10px orange; }
+        h2 { font-family: 'Pacifico', cursive; color: var(--pink); margin: 10px 0; font-size: 22px; }
+        p { color: var(--text); font-size: 14px; line-height: 1.6; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 0 #d63351; transition: 0.1s; }
+        .btn:active { transform: translateY(3px); box-shadow: none; }
+        
+        /* KUE CSS */
+        .cake-wrapper { position: relative; width: 120px; height: 80px; background: #f497ad; border-radius: 15px 15px 5px 5px; margin: 40px auto; border-bottom: 6px solid #e06c88; cursor: pointer; }
+        .icing { width: 120px; height: 25px; background: white; border-radius: 15px 15px 0 0; position: absolute; top: 0; }
+        .candle { width: 10px; height: 35px; background: #eee; position: absolute; top: -30px; left: 55px; border-radius: 4px; }
+        .flame { width: 15px; height: 22px; background: orange; position: absolute; top: -20px; left: -3px; border-radius: 50%; animation: flick 0.1s infinite; box-shadow: 0 0 10px orange; }
         @keyframes flick { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        /* GAME 1: LOVE RUNNER */
-        #runner-box { width: 100%; height: 160px; background: #fdf2f4; border: 2px dashed var(--pink); border-radius: 15px; position: relative; overflow: hidden; margin: 15px 0; }
-        #runner-char { position: absolute; bottom: 10px; left: 20px; font-size: 30px; transition: 0.2s; }
-        #runner-obs { position: absolute; bottom: 10px; right: -40px; font-size: 25px; }
+        /* FOTO */
+        .img-story { width: 100%; height: 230px; object-fit: cover; border-radius: 20px; border: 3px solid var(--pink); margin-bottom: 10px; }
 
-        /* GAME 2: LOVE SCRATCH */
-        #scratch-container { position: relative; width: 250px; height: 250px; margin: 15px auto; }
-        #canvas { position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair; border-radius: 15px; }
-        .photo-under { width: 250px; height: 250px; object-fit: cover; border-radius: 15px; position: absolute; top: 0; left: 0; z-index: 1; }
+        /* GAME RUNNER */
+        #run-box { width: 100%; height: 150px; background: #fdf2f4; border: 2px dashed var(--pink); border-radius: 15px; position: relative; overflow: hidden; margin: 10px 0; }
+        #char { position: absolute; bottom: 10px; left: 20px; font-size: 30px; transition: 0.1s; }
+        #obs { position: absolute; bottom: 10px; right: -30px; font-size: 25px; }
 
-        /* PHOTO GRID */
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .photo-grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 12px; border: 2px solid var(--pink); }
+        /* SCRATCH */
+        #scr-container { position: relative; width: 250px; height: 250px; margin: 0 auto; }
+        canvas { position: absolute; top: 0; left: 0; z-index: 2; border-radius: 15px; cursor: crosshair; touch-action: none; }
+        .scr-img { width: 250px; height: 250px; object-fit: cover; border-radius: 15px; position: absolute; top:0; left:0; z-index: 1; }
 
-        .heart-bg { position: fixed; color: #ffb6c1; animation: float 6s infinite linear; z-index: 1; pointer-events: none; }
-        @keyframes float { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+        .hearts { position: fixed; color: #ffccd5; animation: fly 6s infinite linear; z-index: 1; pointer-events: none; }
+        @keyframes fly { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-<div id="hearts-container"></div>
-<audio id="bgMusic" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
+<div id="bg-hearts"></div>
+<audio id="hbd" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
 
-<div id="s1" class="card">
+<div id="p1" class="card">
     <h2>🔒 Love Lock</h2>
-    <p>Masukkan Tanggal Spesial (1302)</p>
-    <div id="pinDisp" style="font-size: 28px; color: var(--pink); letter-spacing: 8px; margin: 15px; font-weight: bold;">____</div>
+    <p>Masukkan PIN spesial kita (1302)</p>
+    <div id="pin-display" style="font-size: 28px; color: var(--pink); letter-spacing: 6px; margin: 15px; font-weight: bold;">____</div>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-        <script>for(let i=1;i<=9;i++) document.write(`<button class="btn" onclick="addP('${i}')">${i}</button>`);</script>
-        <button class="btn" style="background:#bdc3c7; box-shadow: 0 4px 0 #7f8c8d;" onclick="clP()">C</button>
-        <button class="btn" onclick="addP('0')">0</button>
+        <script>for(let i=1;i<=9;i++) document.write(`<button class="btn" onclick="press('${i}')">${i}</button>`);</script>
+        <button class="btn" style="background:#bdc3c7" onclick="clr()">C</button>
+        <button class="btn" onclick="press('0')">0</button>
     </div>
 </div>
 
-<div id="s2" class="card hidden">
-    <h2>Make a Wish 🎂</h2>
-    <p>Ketuk apinya untuk tiup lilin!</p>
-    <div class="cake" onclick="tiupLilin()">
+<div id="p2" class="card hidden">
+    <h2>Tiup Lilinnya! 🎂</h2>
+    <p>Ketuk apinya untuk mulai musik!</p>
+    <div class="cake-wrapper" onclick="tiup()">
+        <div class="icing"></div>
         <div class="candle"><div id="api" class="flame"></div></div>
     </div>
     <div id="m2" class="hidden">
-        <p><i>"Semoga kita selalu bersama selamanya..."</i></p>
-        <button class="btn" onclick="next(2,3)">Main Love Runner 🏃‍♂️</button>
+        <p><i>"Semoga semua impianmu tercapai..."</i></p>
+        <button class="btn" onclick="nx(2,3)">Buka Cerita ✨</button>
     </div>
 </div>
 
-<div id="s3" class="card hidden">
-    <h2>Love Runner 🏃‍♂️</h2>
-    <p>Lompati 5 rintangan "Sedih"!</p>
-    <div id="runner-box" onclick="runnerJump()">
-        <div id="runner-char">❤️</div>
-        <div id="runner-obs">😢</div>
-    </div>
-    <p id="runScore" style="font-weight: bold;">Skor: 0</p>
+<div id="p3" class="card hidden">
+    <img src="https://i.pinimg.com/1200x/39/68/af/3968afa2fdac6a33c06e1c131a988b5d.jpg" class="img-story">
+    <h2>Awal Segalanya</h2>
+    <p>"Masih ingat momen ini? Ini adalah saat dimana aku merasa sangat beruntung memilikimu."</p>
+    <button class="btn" onclick="nx(3,4)">Lanjut...</button>
 </div>
 
-<div id="s4" class="card hidden">
-    <h2>Love Scratch ✨</h2>
-    <p>Gosok layarnya untuk lihat foto kita!</p>
-    <div id="scratch-container">
-        <img src="https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg" class="photo-under">
-        <canvas id="canvas" width="250" height="250"></canvas>
-    </div>
-    <button id="scrBtn" class="btn hidden" onclick="next(4,5)">Buka Kado ❤️</button>
+<div id="p4" class="card hidden">
+    <img src="https://i.pinimg.com/736x/95/ba/d2/95bad23c53675709958d759b72dbcdc7.jpg" class="img-story">
+    <h2>Tawa Kita</h2>
+    <p>"Setiap senyummu adalah bahagiaku. Jangan pernah berhenti tersenyum ya sayang."</p>
+    <button class="btn" onclick="nx(4,5)">Main Game Bentar 🏃‍♂️</button>
 </div>
 
-<div id="s5" class="card hidden">
-    <h2>HBD Sayang! ❤️</h2>
-    <div class="photo-grid">
-        <img src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
-        <img src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg">
-        <img src="https://i.pinimg.com/236x/f5/61/88/f561885409e6c2e3658514841961ec26.jpg">
-        <img src="https://i.pinimg.com/1200x/2a/39/64/2a3964175390317e137402684948a4c1.jpg">
+<div id="p5" class="card hidden">
+    <h2>Love Runner</h2>
+    <p>Lompati rintangan sedih 5 kali!</p>
+    <div id="run-box" onclick="jump()">
+        <div id="char">❤️</div>
+        <div id="obs">😢</div>
     </div>
-    <p><b>Pesan Untukmu:</b> "Terima kasih sudah lahir ke dunia ini. Kamu adalah kado terindah dalam hidupku."</p>
+    <p id="score">Skor: 0</p>
+</div>
+
+<div id="p6" class="card hidden">
+    <img src="https://i.pinimg.com/736x/70/10/7c/70107c85dead90b26c35d148fbc4b8f4.jpg" class="img-story">
+    <h2>Hanya Kamu</h2>
+    <p>"Cuma sama kamu aku bisa jadi diriku sendiri. Terima kasih sudah menerima kurangku."</p>
+    <button class="btn" onclick="nx(6,7)">Gosok Sesuatu ✨</button>
+</div>
+
+<div id="p7" class="card hidden">
+    <h2>Siapa si Cantik Ini? ✨</h2>
+    <p>Gosok layarnya sampai bersih!</p>
+    <div id="scr-container">
+        <img src="https://i.pinimg.com/736x/c7/70/a8/c770a813c9935a52ae39704721e2c5e4.jpg" class="scr-img">
+        <canvas id="cvs" width="250" height="250"></canvas>
+    </div>
+    <button id="btn7" class="btn hidden" onclick="nx(7,8)">Halaman Terakhir ❤️</button>
+</div>
+
+<div id="p8" class="card hidden">
+    <img src="https://i.pinimg.com/736x/28/90/da/2890da0f33efa842765aa34b43c29fe9.jpg" class="img-story">
+    <h2>Happy Birthday! ❤️</h2>
+    <p>"Selamat ulang tahun untuk orang paling spesial di hidupku. I Love You!"</p>
     <hr>
-    <p><b>Kamu ingin kado apa sayang?</b></p>
-    <input type="text" id="kadoInput" placeholder="Tulis di sini..." style="width:80%; padding:10px; border-radius:10px; border:1px solid var(--pink); outline: none;">
-    <button class="btn" onclick="alert('Kado tercatat di hatiku! I Love You!')">Kirim Ke Aku ❤️</button>
+    <p><b>Kamu ingin kado apa?</b></p>
+    <input type="text" placeholder="Tulis di sini..." style="width:80%; padding:10px; border-radius:10px; border:1px solid var(--pink);">
+    <button class="btn" onclick="alert('Permintaan kado tersimpan! ❤️')">Kirim Kado</button>
 </div>
 
 <script>
-    let pVal = "";
-    function addP(n) { if(pVal.length < 4) pVal += n; upP(); if(pVal === "1302") setTimeout(() => next(1,2), 300); else if(pVal.length === 4) { alert("PIN Salah!"); clP(); } }
-    function clP() { pVal = ""; upP(); }
-    function upP() { document.getElementById('pinDisp').innerText = "*".repeat(pVal.length) + "_".repeat(4-pVal.length); }
-    function next(o, n) { document.getElementById('s'+o).classList.add('hidden'); document.getElementById('s'+n).classList.remove('hidden'); if(n===3) initRunner(); if(n===4) initScratch(); }
-    function tiupLilin() { document.getElementById('api').classList.add('hidden'); document.getElementById('bgMusic').play(); document.getElementById('m2').classList.remove('hidden'); }
+    let p = "";
+    function press(n) { if(p.length<4) p+=n; up(); if(p==="1302") nx(1,2); else if(p.length===4) {alert("PIN Salah!"); clr();} }
+    function clr() { p=""; up(); }
+    function up() { document.getElementById('pin-display').innerText = "*".repeat(p.length) + "_".repeat(4-p.length); }
+    function nx(o,n) { document.getElementById('p'+o).classList.add('hidden'); document.getElementById('p'+n).classList.remove('hidden'); if(n===5) startR(); if(n===7) startS(); }
+    function tiup() { document.getElementById('api').classList.add('hidden'); document.getElementById('hbd').play(); document.getElementById('m2').classList.remove('hidden'); }
 
-    // GAME: LOVE RUNNER
-    let runScore = 0, isJumping = false;
-    function runnerJump() { if(!isJumping) { isJumping = true; document.getElementById('runner-char').style.bottom = "80px"; setTimeout(() => { document.getElementById('runner-char').style.bottom = "10px"; isJumping = false; }, 500); } }
-    function initRunner() {
-        const obs = document.getElementById('runner-obs');
+    // RUNNER
+    let sc = 0, jm = false;
+    function jump() { if(!jm) { jm=true; document.getElementById('char').style.bottom="70px"; setTimeout(()=>{document.getElementById('char').style.bottom="10px"; jm=false;}, 500); } }
+    function startR() {
+        let obs = document.getElementById('obs');
         let move = setInterval(() => {
-            if(document.getElementById('s3').classList.contains('hidden')) { clearInterval(move); return; }
+            if(document.getElementById('p5').classList.contains('hidden')) { clearInterval(move); return; }
             let r = parseInt(window.getComputedStyle(obs).getPropertyValue("right"));
-            if(r > 380) { r = -40; runScore++; document.getElementById('runScore').innerText = "Skor: " + runScore; }
-            obs.style.right = (r + 6) + "px";
-            if(r > 270 && r < 310 && !isJumping) { runScore = 0; document.getElementById('runScore').innerText = "Skor: 0"; r = -40; }
-            if(runScore >= 5) { clearInterval(move); next(3,4); }
+            if(r > 380) { r = -30; sc++; document.getElementById('score').innerText="Skor: "+sc; }
+            obs.style.right = (r + 5) + "px";
+            if(r > 280 && r < 310 && !jm) { sc=0; document.getElementById('score').innerText="Skor: 0"; r=-30; }
+            if(sc >= 5) { clearInterval(move); nx(5,6); }
         }, 20);
     }
 
-    // GAME: LOVE SCRATCH
-    function initScratch() {
-        const cvs = document.getElementById('canvas'); const ctx = cvs.getContext('2d');
+    // SCRATCH
+    function startS() {
+        const cvs = document.getElementById('cvs'); const ctx = cvs.getContext('2d');
         ctx.fillStyle = '#bdc3c7'; ctx.fillRect(0,0,250,250); ctx.globalCompositeOperation = 'destination-out';
-        let painting = false;
+        let paint = false;
         const scratch = (e) => {
-            if(!painting) return;
-            const rect = cvs.getBoundingClientRect();
-            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-            const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-            ctx.beginPath(); ctx.arc(x, y, 25, 0, Math.PI*2); ctx.fill();
-            if(Math.random() > 0.98) document.getElementById('scrBtn').classList.remove('hidden');
+            if(!paint) return;
+            const r = cvs.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+            const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+            ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI*2); ctx.fill();
+            if(Math.random() > 0.98) document.getElementById('btn7').classList.remove('hidden');
         };
-        cvs.addEventListener('mousedown', () => painting = true);
-        window.addEventListener('mouseup', () => painting = false);
-        cvs.addEventListener('mousemove', scratch);
-        cvs.addEventListener('touchstart', (e) => { painting = true; e.preventDefault(); });
-        cvs.addEventListener('touchmove', (e) => { scratch(e); e.preventDefault(); });
+        cvs.onmousedown = () => paint = true; window.onmouseup = () => paint = false;
+        cvs.onmousemove = scratch; cvs.ontouchmove = scratch; cvs.ontouchstart = () => paint = true;
     }
 
     // BG HEARTS
     setInterval(() => {
-        const h = document.createElement('div'); h.className = 'heart-bg'; h.innerText = '❤️';
-        h.style.left = Math.random()*100+'vw'; h.style.fontSize = Math.random()*20+10+'px';
-        document.getElementById('hearts-container').appendChild(h);
-        setTimeout(() => h.remove(), 6000);
+        const h = document.createElement('div'); h.className='hearts'; h.innerText='❤️';
+        h.style.left = Math.random()*100+'vw'; h.style.fontSize=Math.random()*20+10+'px';
+        document.getElementById('bg-hearts').appendChild(h); setTimeout(()=>h.remove(), 7000);
     }, 500);
 </script>
 </body>

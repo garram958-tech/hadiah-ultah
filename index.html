@@ -3,137 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday!</title>
+    <title>Surprise Ulang Tahunmu! 🎉</title>
     <style>
         :root {
-            --primary: #ff4d6d;
-            --secondary: #ff85a1;
-            --bg: #fff0f3;
+            --primary-pink: #ff69b4; /* Hot Pink */
+            --secondary-pink: #ffb6c1; /* Light Pink */
+            --text-color: #4a1421;
+            --bg-color: #ffe4e1; /* Misty Rose */
         }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: #590d22;
+            font-family: 'Comic Sans MS', cursive, sans-serif; /* Font ceria */
+            background-color: var(--bg-color);
+            color: var(--text-color);
             text-align: center;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+            position: relative;
+            background-image: url('https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3Z4ZnNpZGx6cmVqN2V3ajd6N2p4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/l0CLfF5eD9yH29BmM/giphy.gif'); /* Pita pink & love */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
+
         .hidden { display: none !important; }
         .card {
-            background: white;
+            background: rgba(255, 255, 255, 0.9); /* Transparan */
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px;
+            border-radius: 25px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
             width: 90%;
+            margin: 20px;
+            animation: fadeIn 1s ease-out;
+            border: 3px solid var(--primary-pink); /* Border pink */
+            position: relative;
+            z-index: 10;
         }
+
+        h1, h2, h3 { color: var(--primary-pink); margin-bottom: 15px; }
         input {
-            padding: 10px;
-            border-radius: 8px;
-            border: 2px solid var(--secondary);
-            margin-bottom: 10px;
-            width: 80%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid var(--secondary-pink);
+            margin-bottom: 15px;
+            width: calc(100% - 24px);
+            font-size: 1rem;
+            text-align: center;
         }
         button {
-            background-color: var(--primary);
+            background-color: var(--primary-pink);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 25px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease-in-out, background-color 0.2s;
+            margin: 5px;
         }
+        button:hover {
+            transform: translateY(-3px);
+            background-color: #e652a2; /* Darker pink on hover */
+        }
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        /* Games Section */
+        #game-section h3 { font-size: 1.8rem; }
+        #game-section p { font-size: 1.1rem; }
+        #guessInput { width: 150px; }
+
+        /* Gift Section */
         .gift-box {
             display: flex;
-            justify-content: space-around;
+            flex-wrap: wrap; /* Agar bisa wrap ke bawah */
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        .gift-item {
+            font-size: 50px;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .gift-item:hover {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+        #giftResult {
+            margin-top: 25px;
+            color: var(--primary-pink);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        /* Gallery Section */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
             margin-top: 20px;
         }
-        .gift {
-            font-size: 40px;
-            cursor: pointer;
-            transition: transform 0.3s;
+        .photo-gallery img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid var(--secondary-pink);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
-        .gift:hover { transform: scale(1.2); }
-        img { width: 100%; border-radius: 10px; margin-top: 15px; }
+
+        /* Confetti Effect */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary-pink);
+            border-radius: 50%;
+            animation: fall linear forwards;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Flower animation */
+        .flower {
+            position: absolute;
+            font-size: 30px;
+            color: var(--secondary-pink);
+            animation: floatAndFade 5s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+        @keyframes floatAndFade {
+            0% { transform: translateY(100vh); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+
     </style>
 </head>
 <body>
 
     <div id="login-section" class="card">
-        <h2>🔒 Restricted Area</h2>
-        <p>Masukkan Password untuk Masuk:</p>
-        <input type="password" id="passInput" placeholder="Passwordnya apa?">
+        <h1>🤫 Rahasia Tersembunyi 🤫</h1>
+        <p>Masukkan kata rahasia untuk kejutan spesial!</p>
+        <input type="password" id="passInput" placeholder="Clue: Bulan kelahiranmu">
         <br>
-        <button onclick="checkPass()">Buka</button>
-        <p id="error" style="color: red; font-size: 12px;" class="hidden">Password Salah! Petunjuk: "Tanggal jadian" atau "Nama panggilan"</p>
+        <button onclick="checkPass()">Buka Pintu Rahasia</button>
+        <p id="errorMessage" style="color: red; font-size: 0.9rem;" class="hidden">Kata rahasia salah! Coba lagi.</p>
     </div>
 
     <div id="main-content" class="card hidden">
-        <h1>Happy Birthday! 🎂</h1>
-        <img src="https://images.unsplash.com/photo-1530103862676-fa8c9d34bb34?w=500" alt="Birthday">
-        <p>Selamat ulang tahun ya! Semoga harimu menyenangkan. Aku punya sesuatu buat kamu...</p>
-        <button onclick="showGame()">Main Game Dulu!</button>
+        <h1 class="bounce">🎉 Selamat Ulang Tahun, [Nama Dia]! 🎉</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZW12czVqMGZ3cml3bTExd2VnaHJhb3RvdzF5MDF5ejd1cW8yaW81MyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/QvBoQ0Yx7xV7q/giphy.gif" alt="Birthday Celebration" style="max-width: 250px;">
+        <p>Semoga hari ini penuh tawa, kebahagiaan, dan semua keinginanmu tercapai. Kamu adalah orang yang luar biasa!</p>
+        <p>Tapi petualangan belum berakhir! Aku punya beberapa games seru buat kamu...</p>
+        <button onclick="showGame(1)">Mulai Game Pertama!</button>
+        <button onclick="showGallery()" style="background-color: #ff85a1;">Lihat Kenangan Indah</button>
     </div>
 
-    <div id="game-section" class="card hidden">
-        <h3>Tebak Angka (1-10)</h3>
-        <p>Tebak angka keberuntungan hari ini untuk lihat hadiah!</p>
-        <input type="number" id="guessInput">
+    <div id="game1-section" class="card hidden">
+        <h3>Game 1: Tebak Angka Keberuntungan (1-10) 🍀</h3>
+        <p>Aku sudah memilih angka rahasia antara 1 sampai 10. Tebak berapa ya?</p>
+        <input type="number" id="guessInput1" min="1" max="10">
         <br>
-        <button onclick="playGame()">Tebak!</button>
-        <p id="gameHint"></p>
+        <button onclick="playGame1()">Tebak Angka Ini!</button>
+        <p id="game1Hint" class="message"></p>
+        <button onclick="showGame(2)" class="hidden" id="nextGameBtn1">Lanjut ke Game 2!</button>
+    </div>
+
+    <div id="game2-section" class="card hidden">
+        <h3>Game 2: Pilih Kotak Misteri! 🎁</h3>
+        <p>Di balik kotak-kotak ini, ada petunjuk rahasia. Pilih satu saja!</p>
+        <div class="gift-box">
+            <div class="gift-item" onclick="chooseMysteryBox(1)">📦</div>
+            <div class="gift-item" onclick="chooseMysteryBox(2)">📦</div>
+            <div class="gift-item" onclick="chooseMysteryBox(3)">📦</div>
+        </div>
+        <p id="mysteryMessage" class="message"></p>
+        <button onclick="showGiftSection()" class="hidden" id="showGiftBtn">Saatnya Ambil Hadiah!</button>
     </div>
 
     <div id="gift-section" class="card hidden">
-        <h3>Pilih 1 Hadiah Kamu! 🎁</h3>
+        <h3>Pilih Salah Satu Hadiah Impianmu! 💖</h3>
         <div class="gift-box">
-            <div class="gift" onclick="chooseGift('Makan Malam Bareng 🍜')">🎁</div>
-            <div class="gift" onclick="chooseGift('Tiket Nonton Bebas Pilih 🍿')">🎁</div>
-            <div class="gift" onclick="chooseGift('Saldo E-Wallet 💸')">🎁</div>
+            <div class="gift-item" onclick="revealGift('Liburan Impian ✈️')">🎁</div>
+            <div class="gift-item" onclick="revealGift('Gadget Pilihanmu 📱')">🎁</div>
+            <div class="gift-item" onclick="revealGift('Waktu Santai Bersamaku 🧘‍♀️')">🎁</div>
         </div>
-        <h4 id="giftResult" style="margin-top: 20px; color: var(--primary);"></h4>
+        <h4 id="giftResult" class="message" style="font-size: 1.3rem;"></h4>
+    </div>
+
+    <div id="gallery-section" class="card hidden">
+        <h3>💖 Kenangan Terindah Kita 💖</h3>
+        <p>Beberapa momen yang tak terlupakan...</p>
+        <div class="photo-gallery">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500" alt="Foto Kenangan 1">
+            <img src="https://images.unsplash.com/photo-1549417228-b2a6d713217b?w=500" alt="Foto Kenangan 2">
+            <img src="https://images.unsplash.com/photo-1544837703-e847c2144365?w=500" alt="Foto Kenangan 3">
+            <img src="https://images.unsplash.com/photo-1550993073-a63e9f3b89b4?w=500" alt="Foto Kenangan 4">
+            </div>
+        <button onclick="showMainContent()" style="margin-top: 20px;">Kembali</button>
     </div>
 
     <script>
-        // 1. GANTI PASSWORD DI SINI
-        const PASSWORD_BENAR = "1234"; 
-        const ANGKA_RAHASIA = Math.floor(Math.random() * 10) + 1;
+        // --- KONFIGURASI PENTING ---
+        const TARGET_NAME = "Sayang"; // GANTI NAMA DIA DI SINI!
+        const PASSWORD_BENAR = "juli"; // GANTI PASSWORD DI SINI! (contoh: "juli" jika lahir di bulan Juli)
+        const ANGKA_RAHASIA_GAME1 = Math.floor(Math.random() * 10) + 1; // Angka rahasia game 1 (acak)
 
+        // --- Variabel Elemen ---
+        const loginSection = document.getElementById('login-section');
+        const mainContent = document.getElementById('main-content');
+        const game1Section = document.getElementById('game1-section');
+        const game2Section = document.getElementById('game2-section');
+        const giftSection = document.getElementById('gift-section');
+        const gallerySection = document.getElementById('gallery-section');
+
+        const passInput = document.getElementById('passInput');
+        const errorMessage = document.getElementById('errorMessage');
+        const questionElement = mainContent.querySelector('h1');
+
+        questionElement.innerHTML = `🎉 Selamat Ulang Tahun, ${TARGET_NAME}! 🎉`;
+
+        // --- Fungsi Utama ---
+
+        function showSection(sectionToShow) {
+            const sections = [loginSection, mainContent, game1Section, game2Section, giftSection, gallerySection];
+            sections.forEach(section => section.classList.add('hidden'));
+            sectionToShow.classList.remove('hidden');
+        }
+
+        function triggerConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.animationDuration = `${Math.random() * 2 + 3}s`; // 3-5s
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 75%)`;
+                document.body.appendChild(confetti);
+                confetti.addEventListener('animationend', () => confetti.remove());
+            }
+        }
+
+        function createFlowers() {
+            for (let i = 0; i < 15; i++) {
+                const flower = document.createElement('div');
+                flower.classList.add('flower');
+                flower.innerText = '🌸'; // Bunga Sakura
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.animationDuration = `${Math.random() * 5 + 5}s`; // 5-10s
+                flower.style.animationDelay = `-${Math.random() * 5}s`; // Start at different times
+                document.body.appendChild(flower);
+                flower.addEventListener('animationend', () => flower.remove());
+            }
+        }
+
+        // --- LOGIKA PASSWORD ---
         function checkPass() {
-            const input = document.getElementById('passInput').value;
-            if(input === PASSWORD_BENAR) {
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
+            if(passInput.value.toLowerCase() === PASSWORD_BENAR.toLowerCase()) {
+                showSection(mainContent);
+                triggerConfetti(); // Kembang api setelah masuk!
+                createFlowers(); // Bunga berjatuhan
             } else {
-                document.getElementById('error').classList.remove('hidden');
+                errorMessage.classList.remove('hidden');
             }
         }
 
-        function showGame() {
-            document.getElementById('main-content').classList.add('hidden');
-            document.getElementById('game-section').classList.remove('hidden');
-        }
-
-        function playGame() {
-            const guess = parseInt(document.getElementById('guessInput').value);
-            const hint = document.getElementById('gameHint');
-            if(guess === ANGKA_RAHASIA) {
-                alert("Bener banget! Kamu hebat!");
-                document.getElementById('game-section').classList.add('hidden');
-                document.getElementById('gift-section').classList.remove('hidden');
-            } else if(guess < ANGKA_RAHASIA) {
-                hint.innerText = "Kekecilan! Coba lagi.";
-            } else {
-                hint.innerText = "Kebesaran! Coba lagi.";
+        // --- LOGIKA GAME 1 (Tebak Angka) ---
+        function showGame(gameNum) {
+            if (gameNum === 1) {
+                showSection(game1Section);
+                document.getElementById('guessInput1').value = ''; // Reset input
+                document.getElementById('game1Hint').innerText = ''; // Reset hint
+                document.getElementById('nextGameBtn1').classList.add('hidden'); // Sembunyikan tombol lanjut
+            } else if (gameNum === 2) {
+                showSection(game2Section);
+                document.getElementById('mysteryMessage').innerText = ''; // Reset pesan
+                document.getElementById('showGiftBtn').classList.add('hidden'); // Sembunyikan tombol hadiah
             }
         }
 
-        function chooseGift(hadiah) {
-            document.getElementById('giftResult').innerText = "Kamu memilih: " + hadiah + "!\nScreenshot bagian ini dan kirim ke aku ya! ❤️";
+        function playGame1() {
+            const guess = parseInt(document.getElementById('guessInput1').value);
+            const hint = document.getElementById('game1Hint');
+
+            if (isNaN(guess) || guess < 1 || guess > 10) {
+                hint.innerText = "Masukkan angka antara 1 sampai 10 ya.";
+                return;
+            }
+
+            if (guess === ANGKA_RAHASIA_GAME1) {
+                hint.innerText = `Yeayy! Betul sekali! Angka rahasianya adalah ${ANGKA_RAHASIA_GAME1}!`;
+                document.getElementById('nextGameBtn1').classList.remove('hidden');
+                triggerConfetti();
+            } else if (guess < ANGKA_RAHASIA_GAME1) {
+                hint.innerText = "Kekecilan! Coba angka yang lebih besar.";
+            } else {
+                hint.innerText = "Kebesaran! Coba angka yang lebih kecil.";
+            }
         }
+
+        // --- LOGIKA GAME 2 (Pilih Kotak Misteri) ---
+        let mysteryBoxChosen = false;
+        function chooseMysteryBox(boxNum) {
+            if (mysteryBoxChosen) return; // Hanya bisa pilih sekali
+            mysteryBoxChosen = true;
+
+            const mysteryMessage = document.getElementById('mysteryMessage');
+            let message = "";
+            switch(boxNum) {
+                case 1: message = "Kamu memilih kotak keberuntungan! Ini akan membawa kamu ke hadiah utama!"; break;
+                case 2: message = "Kotak ini bilang: 'Kamu spesial, seperti hadiahmu nanti!'"; break;
+                case 3: message = "Kotak ini berbisik: 'Kejutan terindah menantimu!'"; break;
+            }
+            mysteryMessage.innerText = message;
+            document.getElementById('showGiftBtn').classList.remove('hidden');
+        }
+
+        // --- LOGIKA HADIAH ---
+        function showGiftSection() {
+            showSection(giftSection);
+            document.getElementById('giftResult').innerText = '';
+        }
+
+        function revealGift(hadiah) {
+            document.getElementById('giftResult').innerHTML = `Selamat! Kamu memilih:<br><b>"${hadiah}"</b><br>Screenshot bagian ini dan kirim ke aku ya! 😘`;
+            triggerConfetti(); // Kembang api saat hadiah terpilih
+        }
+
+        // --- LOGIKA GALERI ---
+        function showGallery() {
+            showSection(gallerySection);
+        }
+        function showMainContent() {
+            showSection(mainContent);
+        }
+
+        // Inisialisasi: Panggil createFlowers saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', createFlowers);
+
     </script>
 </body>
 </html>

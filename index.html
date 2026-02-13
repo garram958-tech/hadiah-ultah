@@ -3,158 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Love Journey ❤️</title>
+    <title>Mega Birthday Surprise ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ff4d6d; --pink-bg: #fff0f3; --text: #590d22; }
-        body { font-family: 'Quicksand', sans-serif; background: var(--pink-bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(255, 77, 109, 0.2); width: 85%; max-width: 380px; text-align: center; position: relative; z-index: 10; border: 2px solid white; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        :root { --pink: #ff4d6d; --bg: #fff0f3; --dark: #590d22; }
+        body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .card { background: white; padding: 20px; border-radius: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 85%; max-width: 380px; text-align: center; position: relative; z-index: 10; border: 2px solid white; }
         .hidden { display: none !important; }
-        h2 { font-family: 'Pacifico', cursive; color: var(--pink); margin-top: 0; font-size: 26px; }
-        p { color: var(--text); line-height: 1.6; font-size: 14px; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; font-size: 16px; box-shadow: 0 4px 0 #d63351; transition: 0.1s; margin-top: 10px; }
-        .btn:active { transform: translateY(3px); box-shadow: none; }
-        
-        /* LEVEL 2: KUE CSS */
-        .cake-box { position: relative; width: 120px; height: 100px; margin: 30px auto; cursor: pointer; }
-        .cake-layer { width: 120px; height: 60px; background: #f497ad; border-radius: 10px; position: absolute; bottom: 0; border-bottom: 5px solid #e06c88; }
-        .cake-top { width: 120px; height: 20px; background: white; border-radius: 10px 10px 0 0; position: absolute; top: 20px; }
-        .candle { width: 8px; height: 30px; background: #eee; position: absolute; top: -10px; left: 56px; border-radius: 4px; }
-        .flame { width: 14px; height: 20px; background: #ffca3a; position: absolute; top: -18px; left: -3px; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 15px orange; animation: flicker 0.1s infinite alternate; }
-        @keyframes flicker { from { transform: scale(1); } to { transform: scale(1.1); } }
+        h2 { font-family: 'Pacifico', cursive; color: var(--pink); font-size: 24px; margin: 10px 0; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; box-shadow: 0 4px 0 #d63351; }
+        .btn:active { transform: translateY(2px); box-shadow: none; }
 
-        /* LEVEL 4: GAME CATCH */
-        #game-area { background: #fff5f7; border: 2px dashed var(--pink); height: 180px; position: relative; overflow: hidden; border-radius: 15px; touch-action: none; margin: 10px 0; }
-        .player { position: absolute; bottom: 5px; width: 50px; height: 12px; background: var(--pink); border-radius: 5px; left: 115px; }
+        /* GAME: CAKE */
+        .cake { position: relative; width: 100px; height: 60px; background: #f497ad; margin: 40px auto; border-radius: 10px; }
+        .candle { width: 8px; height: 30px; background: white; position: absolute; top: -30px; left: 46px; border-radius: 4px; }
+        .flame { width: 14px; height: 20px; background: orange; position: absolute; top: -18px; left: -3px; border-radius: 50% 50% 20% 20%; box-shadow: 0 0 10px orange; animation: flick 0.1s infinite alternate; }
+        @keyframes flick { from { transform: scale(1); } to { transform: scale(1.1); } }
 
-        /* LEVEL 5: FOTO GRID */
-        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
-        .photo-grid img { width: 100%; height: 100px; object-fit: cover; border-radius: 15px; border: 2px solid var(--pink); }
+        /* GAME: FLAPPY */
+        #flappy-box { width: 100%; height: 200px; background: #ffeef2; position: relative; overflow: hidden; border-radius: 15px; border: 2px dashed var(--pink); touch-action: none; }
+        #bird { position: absolute; left: 30px; top: 80px; font-size: 24px; transition: 0.1s; }
 
-        .heart-bg { position: fixed; color: #ffb6c1; animation: floatUp 7s infinite linear; z-index: 1; pointer-events: none; }
-        @keyframes floatUp { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
+        /* GAME: SCRATCH */
+        #scratch-container { position: relative; width: 250px; height: 250px; margin: 0 auto; cursor: crosshair; }
+        #scratch-canvas { position: absolute; top: 0; left: 0; z-index: 2; border-radius: 15px; }
+        .under-photo { width: 250px; height: 250px; object-fit: cover; border-radius: 15px; position: absolute; top: 0; left: 0; z-index: 1; }
+
+        /* PHOTO GRID */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0; }
+        .grid img { width: 100%; height: 90px; object-fit: cover; border-radius: 10px; border: 2px solid var(--pink); }
+
+        .heart-bg { position: fixed; color: #ffb6c1; animation: float 6s infinite linear; z-index: 1; pointer-events: none; }
+        @keyframes float { from { transform: translateY(110vh); } to { transform: translateY(-10vh); } }
     </style>
 </head>
 <body>
 
-<div id="bg-hearts"></div>
-<audio id="hbdAudio" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop preload="auto"></audio>
+<div id="hearts"></div>
+<audio id="music" src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-piano-theme-1144.mp3" loop></audio>
 
 <div id="lv1" class="card">
-    <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
-    <h2>Love Lock</h2>
-    <p>Masukkan tanggal spesial kita (1302)</p>
-    <div id="pin-display" style="font-size: 28px; color: var(--pink); letter-spacing: 8px; font-weight: bold; margin: 15px 0; height: 40px;">____</div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-        <button class="btn" onclick="press('1')">1</button><button class="btn" onclick="press('2')">2</button><button class="btn" onclick="press('3')">3</button>
-        <button class="btn" onclick="press('4')">4</button><button class="btn" onclick="press('5')">5</button><button class="btn" onclick="press('6')">6</button>
-        <button class="btn" onclick="press('7')">7</button><button class="btn" onclick="press('8')">8</button><button class="btn" onclick="press('9')">9</button>
-        <button class="btn" style="background:#bdc3c7; box-shadow: 0 4px 0 #95a5a6;" onclick="clearPin()">C</button>
-        <button class="btn" onclick="press('0')">0</button>
+    <h2>🔒 Love Lock</h2>
+    <p>Pin Rahasia (1302)</p>
+    <div id="pind" style="font-size: 28px; color: var(--pink); letter-spacing: 5px; margin: 15px;">____</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+        <script>for(let i=1; i<=9; i++) document.write(`<button class="btn" onclick="p('${i}')">${i}</button>`);</script>
+        <button class="btn" onclick="cl()">C</button><button class="btn" onclick="p('0')">0</button>
     </div>
 </div>
 
 <div id="lv2" class="card hidden">
-    <h2>Make a Wish! 🎂</h2>
-    <p>Ketuk apinya untuk tiup lilin & putar lagu!</p>
-    <div class="cake-box" onclick="blowCandle()">
-        <div class="candle"><div id="api" class="flame"></div></div>
-        <div class="cake-layer"><div class="cake-top"></div></div>
-    </div>
-    <div id="msg2" class="hidden">
-        <p><i>"Semoga hari-harimu penuh tawa bersamaku."</i></p>
-        <button class="btn" onclick="nextLevel(2,3)">Tantangan 3 ✨</button>
-    </div>
+    <h2>Make a Wish 🎂</h2>
+    <div class="cake" onclick="tiup()"><div class="candle"><div id="api" class="flame"></div></div></div>
+    <div id="m2" class="hidden"><p><i>"Selamat ulang tahun sayang..."</i></p><button class="btn" onclick="nx(2,3)">Lanjut ke Quiz 🧩</button></div>
 </div>
 
 <div id="lv3" class="card hidden">
-    <h2>Puzzle Cinta 🧩</h2>
-    <p>Siapa nama orang yang paling cantik/ganteng hari ini? (Ketik "Kamu")</p>
-    <input type="text" id="ans3" placeholder="..." style="width: 80%; padding: 12px; border-radius: 10px; border: 2px solid var(--pink); text-align: center; outline: none;">
-    <button class="btn" onclick="checkPuzzle()">Kirim Jawaban</button>
+    <h2>Quiz Cinta 🧩</h2>
+    <p id="qtext">Apa warna kesukaanku?</p>
+    <div id="qopt"></div>
 </div>
 
 <div id="lv4" class="card hidden">
-    <h2>Tangkap Hatiku! ❤️</h2>
-    <p>Geser keranjang untuk tangkap 5 hati!</p>
-    <div id="game-area"><div id="player" class="player"></div></div>
-    <p id="score">Skor: 0</p>
+    <h2>Flappy Heart ❤️</h2>
+    <p>Tap layar agar hati tetap terbang!</p>
+    <div id="flappy-box" onclick="jump()">
+        <div id="bird">❤️</div>
+    </div>
+    <p id="fscore">Skor: 0</p>
 </div>
 
 <div id="lv5" class="card hidden">
-    <h2>Happy Birthday, Sayang! 🎂❤️</h2>
-    <div class="photo-grid">
-        <img src="https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg">
-        <img src="https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg">
-        <img src="https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg">
-        <img src="https://i.pinimg.com/236x/f5/61/88/f561885409e6c2e3658514841961ec26.jpg">
-    </div>
-    <p><b>Awal Bertemu:</b> "Dulu kita hanya dua orang asing, kini kita adalah satu dunia yang utuh. Setiap detik bersamamu adalah hadiah terindah."</p>
-    <p>Aku mencintaimu lebih dari kata-kata. ❤️</p>
-    <button class="btn" onclick="location.reload()">Ulangi Momen</button>
-</div>
-
-<script>
-    let currentPin = "";
-    function press(n) {
-        if(currentPin.length < 4) currentPin += n;
-        document.getElementById('pin-display').innerText = "*".repeat(currentPin.length) + "_".repeat(4 - currentPin.length);
-        if(currentPin === "1302") setTimeout(() => nextLevel(1,2), 300);
-        else if(currentPin.length === 4) { alert("PIN Salah!"); clearPin(); }
-    }
-    function clearPin() { currentPin = ""; document.getElementById('pin-display').innerText = "____"; }
-
-    function nextLevel(old, nxt) {
-        document.getElementById('lv'+old).classList.add('hidden');
-        document.getElementById('lv'+nxt).classList.remove('hidden');
-        if(nxt === 4) initGame();
-    }
-
-    function blowCandle() {
-        document.getElementById('api').classList.add('hidden');
-        document.getElementById('hbdAudio').play();
-        document.getElementById('msg2').classList.remove('hidden');
-    }
-
-    function checkPuzzle() {
-        let val = document.getElementById('ans3').value.toLowerCase();
-        if(val.includes("kamu")) nextLevel(3,4); else alert("Coba lagi sayang...");
-    }
-
-    function initGame() {
-        const area = document.getElementById('game-area');
-        const player = document.getElementById('player');
-        let score = 0, px = 115;
-
-        area.addEventListener('touchmove', (e) => {
-            let r = area.getBoundingClientRect(); px = e.touches[0].clientX - r.left - 25;
-            if(px < 0) px = 0; if(px > 230) px = 230;
-            player.style.left = px + 'px';
-        });
-
-        let gameInt = setInterval(() => {
-            let h = document.createElement('div'); h.innerHTML='❤️'; h.style.position='absolute';
-            h.style.left = Math.random()*250+'px'; h.style.top='0px'; h.style.fontSize='20px'; area.appendChild(h);
-            let fall = setInterval(() => {
-                let y = parseInt(h.style.top); h.style.top = (y+4)+'px';
-                if(y > 160 && parseInt(h.style.left) > px-15 && parseInt(h.style.left) < px+45) {
-                    score++; document.getElementById('score').innerText = "Skor: " + score;
-                    h.remove(); clearInterval(fall);
-                    if(score >= 5) { clearInterval(gameInt); nextLevel(4,5); }
-                }
-                if(y > 180) { h.remove(); clearInterval(fall); }
-            }, 20);
-        }, 800);
-    }
-
-    // Background Hearts
-    setInterval(() => {
-        let h = document.createElement('div'); h.className='heart-bg'; h.innerHTML='❤️';
-        h.style.left = Math.random()*100+'vw'; h.style.fontSize=Math.random()*20+10+'px';
-        document.getElementById('bg-hearts').appendChild(h);
-        setTimeout(()=>h.remove(), 7000);
-    }, 600);
-</script>
-</body>
-</html>

@@ -104,4 +104,70 @@
         if(pInput.length < 4) pInput += n;
         document.getElementById('pin-display').innerText = "*".repeat(pInput.length);
         if(pInput === "1302") next(1,2);
-        else if(pInput.
+        else if(pInput.length === 4) { alert("PIN Salah!"); clr(); }
+    }
+    function clr() { pInput = ""; document.getElementById('pin-display').innerText = "____"; }
+
+    function blowOut() {
+        document.getElementById('api').classList.add('hidden');
+        document.getElementById('bdaySong').play();
+        document.getElementById('wish-text').classList.remove('hidden');
+    }
+
+    function next(o, n) {
+        document.getElementById('s'+o).classList.add('hidden');
+        document.getElementById('s'+n).classList.remove('hidden');
+        if(n === 5) startGame();
+    }
+
+    function checkPuzzle() {
+        let val = document.getElementById('ans').value.toLowerCase();
+        if(val.includes("aku")) next(4,5); else alert("Coba lagi sayang...");
+    }
+
+    // GAME LOGIC
+    function startGame() {
+        const box = document.getElementById('game-box');
+        const basket = document.getElementById('basket');
+        let score = 0;
+        let bPos = 135;
+
+        box.addEventListener('touchmove', (e) => {
+            let rect = box.getBoundingClientRect();
+            bPos = e.touches[0].clientX - rect.left - 25;
+            if(bPos < 0) bPos = 0; if(bPos > 230) bPos = 230;
+            basket.style.left = bPos + 'px';
+        });
+
+        let gameInt = setInterval(() => {
+            let h = document.createElement('div');
+            h.className = 'falling-heart'; h.innerHTML = '❤️';
+            h.style.left = Math.random() * 260 + 'px';
+            h.style.top = '0px';
+            box.appendChild(h);
+
+            let fallInt = setInterval(() => {
+                let top = parseInt(h.style.top);
+                h.style.top = (top + 4) + 'px';
+                if(top > 170 && parseInt(h.style.left) > bPos - 20 && parseInt(h.style.left) < bPos + 50) {
+                    score++; document.getElementById('score').innerText = "Skor: " + score;
+                    h.remove(); clearInterval(fallInt);
+                    if(score >= 5) { clearInterval(gameInt); next(5,6); }
+                }
+                if(top > 200) { h.remove(); clearInterval(fallInt); }
+            }, 20);
+        }, 800);
+    }
+
+    // BG Animation
+    setInterval(() => {
+        let h = document.createElement('div');
+        h.className = 'floating'; h.innerHTML = '❤️';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        document.getElementById('bg-elements').appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+    }, 600);
+</script>
+</body>
+</html>

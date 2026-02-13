@@ -108,4 +108,79 @@
 <div id="sec-final" class="card hidden">
     <h2>Happy Birthday! 🎂❤️</h2>
     <p>Kamu berhasil! Hadiahnya adalah janji dariku untuk selalu mencintaimu setiap hari.</p>
-    <img src="
+    <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExM3FpZzRma3R6bmJ6bm9qN2o4ZzQzZmx4dmdkYm5iNGUwaXQ4eiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/IqX2tqPz2E1W8JvK8i/giphy.gif" width="100%">
+</div>
+
+<script>
+    const SECRET_PIN = "1302"; // GANTI PIN DI SINI
+    let input = "";
+    const photos = [
+        'https://i.pinimg.com/1200x/b2/2d/91/b22d91e439665cbd3e8e19ab1dd3fb1e.jpg',
+        'https://i.pinimg.com/736x/39/34/57/3934576efbcd6951fff042ae09f57488.jpg',
+        'https://i.pinimg.com/1200x/b8/c8/07/b8c807c21e0c0bea5c9d83bc167c4e99.jpg' // Foto tambahan
+    ];
+
+    function tapPin(n) {
+        if(input.length < 4) { input += n; updateDots(); }
+        if(input === SECRET_PIN) transition('sec-lock', 'sec-cake');
+        else if(input.length === 4) { alert("PIN Salah!"); clearPin(); }
+    }
+    function updateDots() {
+        for(let i=1; i<=4; i++) document.getElementById('dot'+i).classList.toggle('active', i <= input.length);
+    }
+    function clearPin() { input = ""; updateDots(); }
+
+    function blowOut() {
+        document.getElementById('flame').classList.add('hidden');
+        const music = document.getElementById('bdayMusic');
+        music.play().catch(e => console.log("Audio diblokir browser, butuh interaksi lebih."));
+        document.getElementById('after-blow').classList.remove('hidden');
+    }
+
+    function transition(oldId, newId) {
+        document.getElementById(oldId).classList.add('hidden');
+        document.getElementById(newId).classList.remove('hidden');
+    }
+
+    function startGame() {
+        transition('sec-story', 'sec-game');
+        const grid = document.getElementById('grid');
+        let deck = [...photos, ...photos].sort(() => Math.random() - 0.5);
+        let flipped = [];
+        let matched = 0;
+
+        deck.forEach(url => {
+            const card = document.createElement('div');
+            card.className = 'm-card';
+            card.innerHTML = `<div class="m-card-front">❤️</div><img src="${url}">`;
+            card.onclick = () => {
+                if(flipped.length < 2 && !card.classList.contains('flipped')) {
+                    card.classList.add('flipped');
+                    flipped.push(card);
+                    if(flipped.length === 2) {
+                        if(flipped[0].querySelector('img').src === flipped[1].querySelector('img').src) {
+                            matched++; flipped = [];
+                            if(matched === 3) setTimeout(() => transition('sec-game', 'sec-final'), 800);
+                        } else {
+                            setTimeout(() => { flipped.forEach(f => f.classList.remove('flipped')); flipped = []; }, 800);
+                        }
+                    }
+                }
+            };
+            grid.appendChild(card);
+        });
+    }
+
+    // Heart Animation
+    setInterval(() => {
+        const h = document.createElement('div');
+        h.className = 'floating-heart'; h.innerHTML = '❤️';
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.fontSize = Math.random() * 20 + 10 + 'px';
+        h.style.animationDuration = Math.random() * 5 + 5 + 's';
+        document.getElementById('bgHearts').appendChild(h);
+        setTimeout(() => h.remove(), 10000);
+    }, 600);
+</script>
+</body>
+</html>

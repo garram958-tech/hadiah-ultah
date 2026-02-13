@@ -3,116 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Birthday Story ❤️</title>
+    <title>HBD Sayang ❤️</title>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --pink: #ff4d6d; --bg: #fff0f3; --text: #590d22; }
+        :root { --pink: #ff4d6d; --bg: #fff0f3; }
         body { font-family: 'Quicksand', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 85%; max-width: 350px; text-align: center; border: 2px solid white; z-index: 10; position: relative; }
+        .card { background: white; padding: 20px; border-radius: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 80%; max-width: 320px; text-align: center; z-index: 10; }
         .hidden { display: none !important; }
-        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 15px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 0 #d63351; }
-        .story-img { width: 100%; height: 250px; object-fit: cover; border-radius: 20px; border: 3px solid var(--pink); margin-bottom: 10px; }
-        
-        /* GAME RUNNER & SCRATCH */
-        #game-box { width: 100%; height: 150px; background: #fdf2f4; border-radius: 15px; border: 2px dashed var(--pink); position: relative; overflow: hidden; margin: 10px 0; }
-        #player { position: absolute; bottom: 10px; left: 20px; font-size: 30px; }
-        #obs { position: absolute; bottom: 10px; right: -30px; font-size: 25px; }
-        #scr-box { position: relative; width: 250px; height: 250px; margin: 0 auto; }
-        canvas { position: absolute; top: 0; left: 0; z-index: 2; border-radius: 15px; touch-action: none; }
-        .scr-under { width: 250px; height: 250px; object-fit: cover; border-radius: 15px; position: absolute; top:0; left:0; z-index: 1; }
+        .btn { background: var(--pink); color: white; border: none; padding: 12px; border-radius: 12px; width: 100%; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .img-s { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; border: 2px solid var(--pink); margin-bottom: 10px; }
+        #scr-box { position: relative; width: 200px; height: 200px; margin: 0 auto; }
+        canvas { position: absolute; top: 0; left: 0; z-index: 2; border-radius: 10px; touch-action: none; }
+        .scr-u { width: 200px; height: 200px; object-fit: cover; border-radius: 10px; position: absolute; top:0; left:0; z-index: 1; }
     </style>
 </head>
 <body>
 
-<div id="overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,240,243,0.95); z-index:100; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
-    <h2 style="font-family:'Pacifico'; color:var(--pink);">Hai Sayang! ❤️</h2>
-    <p>Klik tombol di bawah dulu ya <br> biar ada suaranya ✨</p>
-    <button class="btn" style="width:200px;" onclick="startAll()">Buka Hadiah ✨</button>
+<div id="start-overlay" style="position:fixed; top:0; left:0; width:100%; height:100%; background:var(--bg); z-index:100; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+    <h2 style="font-family:'Pacifico'; color:var(--pink);">Hai Cantik! ❤️</h2>
+    <button class="btn" style="width:200px;" onclick="mulai()">KLIK UNTUK MULAI ✨</button>
+    <p style="font-size: 12px; margin-top: 10px;">(Pastikan volume HP aktif ya!)</p>
 </div>
 
-<audio id="music" loop preload="auto">
-    <source src="https://cdn.jsdelivr.net/gh/Aris-Agustian/assets@main/hbd.mp3" type="audio/mpeg">
-    <source src="https://raw.githubusercontent.com/Aris-Agustian/assets/main/hbd.mp3" type="audio/mpeg">
+<audio id="lagu" loop>
+    <source src="https://feeldreams.github.io/audio/happybirthday.mp3" type="audio/mpeg">
 </audio>
 
-<div id="main-content" class="hidden">
+<div id="konten" class="hidden">
     <div id="p1" class="card">
-        <h2>🔒 Love Lock</h2>
+        <h2 style="font-family:'Pacifico'; color:var(--pink);">Love Lock</h2>
         <p>Masukkan PIN (1302)</p>
-        <div id="pin-d" style="font-size: 28px; color: var(--pink); letter-spacing: 5px; margin: 15px; font-weight: bold;">____</div>
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
-            <script>for(let i=1;i<=9;i++) document.write(`<button class="btn" onclick="inP('${i}')">${i}</button>`);</script>
-            <button class="btn" style="background:#bdc3c7" onclick="clrP()">C</button><button class="btn" onclick="inP('0')">0</button>
+        <div id="pin-d" style="font-size: 24px; color: var(--pink); font-weight: bold; margin: 10px;">____</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+            <script>for(let i=1;i<=9;i++) document.write(`<button class="btn" onclick="tekan('${i}')">${i}</button>`);</script>
+            <button class="btn" onclick="tekan('0')">0</button>
         </div>
     </div>
 
     <div id="p2" class="card hidden">
-        <h2>Make a Wish 🎂</h2>
-        <div style="font-size: 50px; margin: 20px;">🎂</div>
-        <p><i>"Semoga bahagia selalu sayang..."</i></p>
-        <button class="btn" onclick="nx(2,3)">Buka Cerita ✨</button>
+        <div style="font-size: 60px;">🎂</div>
+        <h2>Make a Wish</h2>
+        <button class="btn" onclick="next(2,3)">Buka Foto ✨</button>
     </div>
 
-    <div id="p3" class="card hidden"><img src="https://i.pinimg.com/1200x/39/68/af/3968afa2fdac6a33c06e1c131a988b5d.jpg" class="story-img"><h2>Awal Kita</h2><button class="btn" onclick="nx(3,4)">Lanjut...</button></div>
-    <div id="p4" class="card hidden"><img src="https://i.pinimg.com/736x/95/ba/d2/95bad23c53675709958d759b72dbcdc7.jpg" class="story-img"><h2>Bahagiaku</h2><button class="btn" onclick="nx(4,5)">Main Game 🏃‍♂️</button></div>
-    
-    <div id="p5" class="card hidden"><h2>Love Runner</h2><div id="game-box" onclick="jump()"><div id="player">❤️</div><div id="obs">😢</div></div><p id="sc">Skor: 0</p></div>
+    <div id="p3" class="card hidden"><img src="https://i.pinimg.com/1200x/39/68/af/3968afa2fdac6a33c06e1c131a988b5d.jpg" class="img-s"><h3>Awal Kita ❤️</h3><button class="btn" onclick="next(3,4)">Next</button></div>
+    <div id="p4" class="card hidden"><img src="https://i.pinimg.com/736x/95/ba/d2/95bad23c53675709958d759b72dbcdc7.jpg" class="img-s"><h3>Bahagiaku ❤️</h3><button class="btn" onclick="next(4,5)">Next</button></div>
+    <div id="p5" class="card hidden"><img src="https://i.pinimg.com/736x/70/10/7c/70107c85dead90b26c35d148fbc4b8f4.jpg" class="img-s"><h3>Selamanya ❤️</h3><button class="btn" onclick="next(5,6)">Gosok Ini ✨</button></div>
 
-    <div id="p6" class="card hidden"><img src="https://i.pinimg.com/736x/70/10/7c/70107c85dead90b26c35d148fbc4b8f4.jpg" class="story-img"><h2>Dunia Berdua</h2><button class="btn" onclick="nx(6,7)">Gosok Sesuatu ✨</button></div>
+    <div id="p6" class="card hidden">
+        <h3>Siapa Ini? ✨</h3>
+        <div id="scr-box">
+            <img src="https://i.pinimg.com/736x/c7/70/a8/c770a813c9935a52ae39704721e2c5e4.jpg" class="scr-u">
+            <canvas id="cvs" width="200" height="200"></canvas>
+        </div>
+        <button id="btn-f" class="hidden btn" onclick="next(6,7)">Slide Terakhir</button>
+    </div>
 
-    <div id="p7" class="card hidden"><h2>Si Cantik ✨</h2><div id="scr-box"><img src="https://i.pinimg.com/736x/c7/70/a8/c770a813c9935a52ae39704721e2c5e4.jpg" class="scr-under"><canvas id="cvs" width="250" height="250"></canvas></div><button id="btn7" class="btn hidden" onclick="nx(7,8)">Slide Terakhir ❤️</button></div>
-
-    <div id="p8" class="card hidden"><img src="https://i.pinimg.com/736x/28/90/da/2890da0f33efa842765aa34b43c29fe9.jpg" class="story-img"><h2>HBD Sayang ❤️</h2><button class="btn" onclick="alert('Love You!')">Selesai ❤️</button></div>
+    <div id="p7" class="card hidden"><img src="https://i.pinimg.com/736x/28/90/da/2890da0f33efa842765aa34b43c29way.jpg" class="img-s"><h2>HBD Sayang! ❤️</h2><p>I Love You!</p></div>
 </div>
 
 <script>
-    const music = document.getElementById('music');
-    function startAll() {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('main-content').classList.remove('hidden');
-        music.play(); // MUSIK MULAI DI SINI
+    const audio = document.getElementById('lagu');
+    function mulai() {
+        document.getElementById('start-overlay').style.display = 'none';
+        document.getElementById('konten').classList.remove('hidden');
+        audio.play().catch(() => {
+            // Jika gagal, coba lagi saat klik apapun
+            document.addEventListener('click', () => audio.play(), {once: true});
+        });
     }
 
-    let pin = "";
-    function inP(n) { 
-        if(pin.length<4) pin+=n; upP(); 
-        if(pin==="1302") nx(1,2);
-        else if(pin.length===4) { alert("PIN Salah!"); clrP(); }
-    }
-    function clrP() { pin=""; upP(); }
-    function upP() { document.getElementById('pin-d').innerText = "*".repeat(pin.length) + "_".repeat(4-pin.length); }
-    function nx(o,n) { document.getElementById('p'+o).classList.add('hidden'); document.getElementById('p'+n).classList.remove('hidden'); if(n===5) startR(); if(n===7) startS(); }
+    let p = "";
+    function tekan(n) { if(p.length<4) p+=n; up(); if(p==="1302") next(1,2); else if(p.length===4) p=""; }
+    function up() { document.getElementById('pin-d').innerText = "*".repeat(p.length) + "_".repeat(4-p.length); }
+    function next(o,n) { document.getElementById('p'+o).classList.add('hidden'); document.getElementById('p'+n).classList.remove('hidden'); if(n===6) gosok(); }
 
-    // GAME RUNNER
-    let sc = 0, jm = false;
-    function jump() { if(!jm) { jm=true; document.getElementById('player').style.bottom="70px"; setTimeout(()=>{document.getElementById('player').style.bottom="10px"; jm=false;}, 500); } }
-    function startR() {
-        let obs = document.getElementById('obs');
-        let move = setInterval(() => {
-            if(document.getElementById('p5').classList.contains('hidden')) { clearInterval(move); return; }
-            let r = parseInt(window.getComputedStyle(obs).getPropertyValue("right"));
-            if(r > 380) { r = -30; sc++; document.getElementById('sc').innerText="Skor: "+sc; }
-            obs.style.right = (r + 5) + "px";
-            if(r > 270 && r < 310 && !jm) { sc=0; document.getElementById('sc').innerText="Skor: 0"; r=-30; }
-            if(sc >= 5) { clearInterval(move); nx(5,6); }
-        }, 20);
-    }
-
-    // SCRATCH
-    function startS() {
+    function gosok() {
         const cvs = document.getElementById('cvs'); const ctx = cvs.getContext('2d');
-        ctx.fillStyle = '#bdc3c7'; ctx.fillRect(0,0,250,250); ctx.globalCompositeOperation = 'destination-out';
-        let paint = false;
-        const scratch = (e) => {
-            if(!paint) return;
+        ctx.fillStyle = '#ccc'; ctx.fillRect(0,0,200,200); ctx.globalCompositeOperation = 'destination-out';
+        const draw = (e) => {
             const r = cvs.getBoundingClientRect();
             const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
             const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
-            ctx.beginPath(); ctx.arc(x, y, 30, 0, Math.PI*2); ctx.fill();
-            if(Math.random() > 0.98) document.getElementById('btn7').classList.remove('hidden');
+            ctx.beginPath(); ctx.arc(x,y,25,0,Math.PI*2); ctx.fill();
+            document.getElementById('btn-f').classList.remove('hidden');
         };
-        cvs.onmousedown = () => paint = true; window.onmouseup = () => paint = false;
-        cvs.onmousemove = scratch; cvs.ontouchmove = scratch; cvs.ontouchstart = () => paint = true;
+        cvs.addEventListener('mousemove', draw); cvs.addEventListener('touchmove', draw);
     }
 </script>
 </body>
